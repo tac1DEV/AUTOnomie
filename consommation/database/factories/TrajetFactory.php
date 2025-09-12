@@ -13,7 +13,7 @@ class TrajetFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_voiture' => DB::table('Voiture')::inRandomOrder()->first()->id ?? Voiture::factory(),
+            'id_voiture' => Voiture::all()->random()->id,
             'date' => $this->faker->dateTimeThisYear(),
             'type_trajet' => $this->faker->randomElement(['urbain', 'autoroute', 'mixte']),
             'destination' => $this->faker->city(),

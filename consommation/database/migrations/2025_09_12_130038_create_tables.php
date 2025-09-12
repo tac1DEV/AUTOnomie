@@ -10,21 +10,23 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('voiture', function (Blueprint $table) {
+        Schema::create('voitures', function (Blueprint $table) {
             $table->id();
             $table->string('manufacturer');
             $table->string('model');
             $table->integer('km');
             $table->integer('charge_batterie');
             $table->integer('autonomie');
+            $table->timestamps();
         });
-        Schema::create('commentaire', function (Blueprint $table) {
+        Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
             $table->text('message');
+            $table->timestamps();
         });
-        Schema::create('trajet', function (Blueprint $table) {
+        Schema::create('trajets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_voiture')->constrained('voiture');
+            $table->foreignId('id_voiture')->constrained('voitures');
             $table->dateTime('date');
             $table->string('type_trajet');
             $table->string('destination');
@@ -32,9 +34,10 @@ return new class extends Migration {
             $table->integer('consommation_moyenne');
             $table->integer('energie_recuperee');
             $table->integer('consommation_climatisation');
-            $table->foreignId('id_commentaire')->constrained('commentaire');
+            $table->foreignId('id_commentaire')->constrained('commentaires');
+            $table->timestamps();
         });
-        Schema::create('recharge', function (Blueprint $table) {
+        Schema::create('recharges', function (Blueprint $table) {
             $table->id();
             $table->integer('duree');
             $table->integer('kw_charge');
@@ -42,7 +45,8 @@ return new class extends Migration {
             $table->integer('pu_charge_kwh');
             $table->integer('cout');
             $table->integer('pourcentage');
-            $table->foreignId('id_commentaire')->constrained('commentaire');
+            $table->foreignId('id_commentaire')->constrained('commentaires');
+            $table->timestamps();
         });
 
     }
@@ -52,9 +56,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('recharge');
-        Schema::dropIfExists('trajet');
-        Schema::dropIfExists('commentaire');
-        Schema::dropIfExists('voiture');
+        Schema::dropIfExists('recharges');
+        Schema::dropIfExists('trajets');
+        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('voitures');
     }
 };
