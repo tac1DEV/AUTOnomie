@@ -34,7 +34,8 @@ return new class extends Migration {
             $table->integer('consommation_moyenne');
             $table->integer('energie_recuperee');
             $table->integer('consommation_climatisation');
-            $table->foreignId('id_commentaire')->constrained('commentaires');
+            $table->foreignId('id_commentaire')->nullable()->constrained('commentaires');
+
             $table->timestamps();
         });
         Schema::create('recharges', function (Blueprint $table) {
@@ -45,7 +46,7 @@ return new class extends Migration {
             $table->integer('pu_charge_kwh');
             $table->integer('cout');
             $table->integer('pourcentage');
-            $table->foreignId('id_commentaire')->constrained('commentaires');
+            $table->foreignId('id_commentaire')->nullable()->constrained('commentaires');
             $table->timestamps();
         });
 
