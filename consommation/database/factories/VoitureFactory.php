@@ -11,7 +11,7 @@ class VoitureFactory extends Factory
     {
         return [
             'manufacturer' => $this->faker->randomElement(['Tesla', 'Renault', 'Nissan', 'BMW']),
-            'model' => $this->faker->word(),
+            'model' => $this->faker->randomElement(['1', '2', '3']),
             'km' => $this->faker->numberBetween(0, 100000),
             'charge_batterie' => $this->faker->numberBetween(10, 100),
             'autonomie' => $this->faker->numberBetween(150, 500),
