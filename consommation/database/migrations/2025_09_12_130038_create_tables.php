@@ -28,10 +28,15 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('id_voiture')->constrained('voitures');
             $table->dateTime('date');
-            $table->string('type_trajet');
+            $table->string('action');
             $table->string('destination');
+            $table->integer('km');
+            $table->integer('pourcentage_batterie');
+            $table->integer('autonomie');
+            $table->integer('distance');
             $table->integer('vitesse_moyenne');
             $table->integer('consommation_moyenne');
+            $table->integer('consommation_totale');
             $table->integer('energie_recuperee');
             $table->integer('consommation_climatisation');
             $table->foreignId('id_commentaire')->nullable()->constrained('commentaires');

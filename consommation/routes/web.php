@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentaireController;
 
 Route::get('/', [TrajetController::class, 'index']);
 Route::post('/', [TrajetController::class, 'store'])->name('trajets.store');
+Route::delete('/trajets/{id}', [TrajetController::class, 'destroy'])->name('trajets.destroy');
 Route::get('/voitures', [VoitureController::class, 'index']);
 Route::get('/recharges', [RechargeController::class, 'index']);
 Route::get('/commentaires', [CommentaireController::class, 'index']);

@@ -15,7 +15,7 @@ class TrajetFactory extends Factory
         return [
             'id_voiture' => Voiture::all()->random()->id,
             'date' => $this->faker->dateTimeThisYear(),
-            'type_trajet' => $this->faker->randomElement(['urbain', 'autoroute', 'mixte']),
+            'action' => $this->faker->randomElement(['urbain', 'autoroute', 'mixte']),
             'destination' => $this->faker->city(),
             'vitesse_moyenne' => $this->faker->numberBetween(30, 120),
             'consommation_moyenne' => $this->faker->numberBetween(10, 25),

@@ -9,6 +9,6 @@ class TrajetSeeder extends Seeder
 {
     public function run(): void
     {
-        Trajet::factory()->count(20)->create();
+        // Trajet::factory()->count(20)->create();
     }
 }
