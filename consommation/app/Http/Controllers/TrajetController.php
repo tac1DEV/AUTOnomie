@@ -10,27 +10,27 @@ class TrajetController extends Controller
 {
     public function index()
     {
-        $trajets = Trajet::with('voiture')->orderBy('created_at', 'desc')->get();
-        $voitures = Voiture::all();
+        $trajets = Trajet::orderBy('id', 'desc')->take(10)->get();
 
-        return view('trajets.index', compact('trajets', 'voitures'));
+        return view('trajets.index', compact('trajets'));
     }
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_voiture' => 'required|exists:voitures,id',
             'date' => 'required|date',
             'action' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'km' => 'required|integer|min:0',
             'pourcentage_batterie' => 'required|integer|min:0|max:100',
             'autonomie' => 'required|integer|min:0',
+            'type' => 'required|string|max:3',
+            'reset' => 'nullable|boolean',
             'distance' => 'required|integer|min:0',
             'vitesse_moyenne' => 'required|integer|min:0',
             'consommation_moyenne' => 'required|integer|min:0',
             'consommation_totale' => 'required|integer|min:0',
             'energie_recuperee' => 'required|integer|min:0',
-            'consommation_climatisation' => 'required|integer|min:0',
+            'consommation_clim' => 'required|integer|min:0',
         ]);
 
         Trajet::create($validated);

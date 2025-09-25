@@ -10,26 +10,24 @@ class Trajet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_voiture',
         'date',
         'action',
         'destination',
         'km',
         'pourcentage_batterie',
         'autonomie',
+        'type',
+        'reset',
         'distance',
         'vitesse_moyenne',
         'consommation_moyenne',
         'consommation_totale',
         'energie_recuperee',
-        'consommation_climatisation',
-        'id_commentaire'
+        'consommation_clim',
+        'id_commentaire',
     ];
 
-    public function voiture()
-    {
-        return $this->belongsTo(Voiture::class, 'id_voiture');
-    }
+    public $timestamps = false;
 
     public function commentaire()
     {
@@ -38,9 +36,8 @@ class Trajet extends Model
 
     public function distance()
     {
-        $trajetPrecedent = self::where('id_voiture', $this->id_voiture)
-            ->where('created_at', '<', $this->created_at)
-            ->orderBy('created_at', 'desc')
+        $trajetPrecedent = self::where('date', '<', $this->date)
+            ->orderBy('date', 'desc')
             ->first();
         $distance = $trajetPrecedent ? $this->km - $trajetPrecedent->km : null;
 
@@ -50,9 +47,8 @@ class Trajet extends Model
 
     public function pourcentageBatterie()
     {
-        $trajetPrecedent = self::where('id_voiture', $this->id_voiture)
-            ->where('created_at', '<', $this->created_at)
-            ->orderBy('created_at', 'desc')
+        $trajetPrecedent = self::where('date', '<', $this->date)
+            ->orderBy('date', 'desc')
             ->first();
 
         return $trajetPrecedent ? $this->pourcentage_batterie - $trajetPrecedent->pourcentage_batterie : null;
@@ -60,9 +56,8 @@ class Trajet extends Model
     }
     public function nbKw()
     {
-        $trajetPrecedent = self::where('id_voiture', $this->id_voiture)
-            ->where('created_at', '<', $this->created_at)
-            ->orderBy('created_at', 'desc')
+        $trajetPrecedent = self::where('date', '<', $this->date)
+            ->orderBy('date', 'desc')
             ->first();
 
         return $trajetPrecedent ? $this->consommation_totale - $trajetPrecedent->consommation_totale : null;

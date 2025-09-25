@@ -10,15 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('voitures', function (Blueprint $table) {
-            $table->id();
-            $table->string('manufacturer');
-            $table->string('model');
-            $table->integer('km');
-            $table->integer('charge_batterie');
-            $table->integer('autonomie');
-            $table->timestamps();
-        });
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
             $table->text('message');
@@ -26,23 +17,23 @@ return new class extends Migration {
         });
         Schema::create('trajets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_voiture')->constrained('voitures');
-            $table->dateTime('date');
-            $table->string('action');
-            $table->string('destination');
-            $table->integer('km');
-            $table->integer('pourcentage_batterie');
-            $table->integer('autonomie');
-            $table->integer('distance');
-            $table->integer('vitesse_moyenne');
-            $table->integer('consommation_moyenne');
-            $table->integer('consommation_totale');
-            $table->integer('energie_recuperee');
-            $table->integer('consommation_climatisation');
+            $table->dateTime('date')->nullable();
+            $table->string('action')->nullable();
+            $table->string('destination')->nullable();
+            $table->integer('km')->nullable();
+            $table->integer('pourcentage_batterie')->nullable();
+            $table->float('autonomie')->nullable();
+            $table->string('type', 3)->nullable();
+            $table->boolean('reset')->default(false);
+            $table->float('distance')->nullable();
+            $table->float('vitesse_moyenne')->nullable();
+            $table->float('consommation_moyenne')->nullable();
+            $table->float('consommation_totale')->nullable();
+            $table->float('energie_recuperee')->nullable();
+            $table->float('consommation_clim')->nullable();
             $table->foreignId('id_commentaire')->nullable()->constrained('commentaires');
-
-            $table->timestamps();
         });
+
         Schema::create('recharges', function (Blueprint $table) {
             $table->id();
             $table->integer('duree');
@@ -65,6 +56,5 @@ return new class extends Migration {
         Schema::dropIfExists('recharges');
         Schema::dropIfExists('trajets');
         Schema::dropIfExists('commentaires');
-        Schema::dropIfExists('voitures');
     }
 };

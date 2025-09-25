@@ -7,18 +7,6 @@
 
             <!-- Informations générales -->
             <div>
-                <label for="id_voiture">
-                    Voiture</label>
-                <select name="id_voiture" id="id_voiture" required>
-                    <option value="">Sélectionner une voiture</option>
-                    @foreach ($voitures as $voiture)
-                        <option value="{{ $voiture->id }}">{{ $voiture->manufacturer }} {{ $voiture->model }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div>
                 <label for="date">📅 Date</label>
                 <input type="date" name="date" id="date" required>
             </div>
@@ -29,65 +17,65 @@
             </div>
 
             <div>
-                <label for="destination">📍
-                    Destination</label>
+                <label for="destination">📍 Destination</label>
                 <input type="text" name="destination" id="destination" placeholder="Paris, Lyon..." required>
             </div>
 
             <div>
-                <label for="km">📏
-                    Kilomètres</label>
+                <label for="km">📏 Kilomètres</label>
                 <input type="number" name="km" id="km" placeholder="120" required>
+            </div>
+            <div>
+                <label for="type">Type</label>
+                <input type="text" name="type" id="type" placeholder="MA" required>
             </div>
 
             <div>
-                <label for="autonomie">🔋 Autonomie
-                    (km)</label>
+                <label for="reset">Reset</label>
+                <!-- Hidden input pour envoyer 0 si non coché -->
+                <input type="hidden" name="reset" value="0">
+                <input type="checkbox" name="reset" id="reset" value="1">
+            </div>
+
+            <div>
+                <label for="autonomie">🔋 Autonomie (km)</label>
                 <input type="number" name="autonomie" id="autonomie" placeholder="350" required>
             </div>
 
             <div>
-                <label for="distance">📐 Distance
-                    (km)</label>
+                <label for="distance">📐 Distance (km)</label>
                 <input type="number" name="distance" id="distance" placeholder="115" required>
             </div>
 
             <div>
-                <label for="vitesse_moyenne">🏎️
-                    Vitesse Moy.</label>
+                <label for="vitesse_moyenne">🏎️ Vitesse Moy.</label>
                 <input type="number" name="vitesse_moyenne" id="vitesse_moyenne" placeholder="90" required>
             </div>
 
             <div>
-                <label for="pourcentage_batterie">🔋
-                    % Batterie</label>
+                <label for="pourcentage_batterie">🔋 % Batterie</label>
                 <input type="number" name="pourcentage_batterie" id="pourcentage_batterie" placeholder="85" min="0"
                     max="100" required>
             </div>
 
             <div>
-                <label for="consommation_moyenne">⚡
-                    Conso Moy.</label>
+                <label for="consommation_moyenne">⚡ Conso Moy.</label>
                 <input type="number" name="consommation_moyenne" id="consommation_moyenne" placeholder="15" required>
             </div>
 
             <div>
-                <label for="consommation_totale">📊
-                    Conso Totale</label>
+                <label for="consommation_totale">📊 Conso Totale</label>
                 <input type="number" name="consommation_totale" id="consommation_totale" placeholder="18" required>
             </div>
 
             <div>
-                <label for="energie_recuperee">♻️
-                    Énergie Récup.</label>
+                <label for="energie_recuperee">♻️ Énergie Récup.</label>
                 <input type="number" name="energie_recuperee" id="energie_recuperee" placeholder="3" required>
             </div>
 
             <div>
-                <label for="consommation_climatisation">❄️
-                    Conso Clim</label>
-                <input type="number" name="consommation_climatisation" id="consommation_climatisation" placeholder="2"
-                    required>
+                <label for="consommation_clim">❄️ Conso Clim</label>
+                <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2" required>
             </div>
 
             <!-- Submit -->
@@ -97,6 +85,7 @@
                 </button>
             </div>
         </form>
+
     </div>
     </div>
 
@@ -115,9 +104,6 @@
                 <!-- Ligne 1 : Infos principales -->
                 <div class="flex flex-wrap gap-4 mb-2 w-full md:w-1/2">
                     <h1>Infos principales</h1>
-                    <p class="font-semibold text-gray-800">🚗 {{ $trajet->voiture->manufacturer }}
-                        {{ $trajet->voiture->model }}
-                    </p>
                     <p class="text-gray-500">📅 {{ $trajet->date }}</p>
                     <p class="text-gray-700">⚡ {{ $trajet->action }}</p>
                     <p class="text-gray-700">📍 {{ $trajet->destination }}</p>
@@ -129,12 +115,13 @@
                     <p>📏 Km: <span class="font-medium">{{ $trajet->km }}</span></p>
                     <p>🔋 Batterie: <span class="font-medium">{{ $trajet->pourcentage_batterie }}%</span></p>
                     <p>🔋 Autonomie: <span class="font-medium">{{ $trajet->autonomie }} km</span></p>
+                    <p>Reset: <span class="font-medium">{{ $trajet->reset ? 'raz' : 'non' }}</span></p>
                     <p>📐 Distance: <span class="font-medium">{{ $trajet->distance }}</span></p>
                     <p>🏎️ Vitesse moy.: <span class="font-medium">{{ $trajet->vitesse_moyenne }} km/h</span></p>
                     <p>⚡ Conso moy.: <span class="font-medium">{{ $trajet->consommation_moyenne }} kWh/100km</span></p>
                     <p>📊 Conso tot.: <span class="font-medium">{{ $trajet->consommation_totale }} kWh</span></p>
                     <p>♻️ Energie recup.: <span class="font-medium">{{ $trajet->energie_recuperee }} kWh</span></p>
-                    <p>❄️ Conso clim.: <span class="font-medium">{{ $trajet->consommation_climatisation }} kWh</span>
+                    <p>❄️ Conso clim.: <span class="font-medium">{{ $trajet->consommation_clim }} kWh</span>
                     </p>
                 </div>
 
