@@ -10,7 +10,7 @@ class TrajetController extends Controller
 {
     public function index()
     {
-        $trajets = Trajet::orderBy('id', 'desc')->take(10)->get();
+        $trajets = Trajet::orderBy('id', 'desc')->paginate(10);
 
         return view('trajets.index', compact('trajets'));
     }
