@@ -10,7 +10,7 @@ class TrajetController extends Controller
 {
     public function index()
     {
-        $trajets = Trajet::orderBy('id', 'desc')->paginate(10);
+        $trajets = Trajet::orderBy('id', 'desc')->paginate(9);
 
         return view('trajets.index', compact('trajets'));
     }
@@ -37,6 +37,37 @@ class TrajetController extends Controller
 
 
         return redirect()->back()->with('success', 'Trajet ajouté avec succès.');
+    }
+    public function edit($id)
+    {
+        $trajet = Trajet::findOrFail($id); // récupère le trajet ou renvoie 404
+        return view('trajets.edit', compact('trajet'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $trajet = Trajet::findOrFail($id);
+
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'action' => 'required|string|max:255',
+            'destination' => 'required|string|max:255',
+            'km' => 'required|integer|min:0',
+            'pourcentage_batterie' => 'required|integer|min:0|max:100',
+            'autonomie' => 'required|integer|min:0',
+            'type' => 'required|string|max:3',
+            'reset' => 'nullable|boolean',
+            'distance' => 'required|integer|min:0',
+            'vitesse_moyenne' => 'required|integer|min:0',
+            'consommation_moyenne' => 'required|integer|min:0',
+            'consommation_totale' => 'required|integer|min:0',
+            'energie_recuperee' => 'required|integer|min:0',
+            'consommation_clim' => 'required|integer|min:0',
+        ]);
+
+        $trajet->update($validated);
+
+        return redirect()->route('trajets.index')->with('success', 'Trajet mis à jour avec succès.');
     }
     public function destroy($id)
     {

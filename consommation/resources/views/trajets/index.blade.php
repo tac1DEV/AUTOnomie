@@ -1,13 +1,12 @@
 <x-layout>
-    <div class="container mx-auto p-6 space-y-8">
 
-        <!-- Formulaire de création -->
-        <div class="bg-white shadow rounded-xl p-6">
-            <h2 class="text-xl font-bold mb-4">Ajouter un trajet</h2>
+    <!-- Formulaire de création -->
+    <div class="mx-auto space-y-8 rounded-xl px-12">
+        <h2 class="text-xl font-bold mb-4 text-center">Ajouter un trajet</h2>
 
-            <form action="{{ route('trajets.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                @csrf
-
+        <form action="{{ route('trajets.store') }}" method="POST">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-14 gap-4">
                 <div>
                     <label for="date" class="block font-medium">📅 Date</label>
                     <input type="date" name="date" id="date" required class="w-full border rounded px-3 py-2 mt-1">
@@ -37,10 +36,11 @@
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
 
-                <div class="flex items-center mt-6 md:mt-0">
+                <div>
+                    <label for=" reset" class="font-medium">Reset</label>
                     <input type="hidden" name="reset" value="0">
-                    <input type="checkbox" name="reset" id="reset" value="1" class="mr-2">
-                    <label for="reset" class="font-medium">Reset</label>
+                    <input type="checkbox" name="reset" id="reset" value="1"
+                        class="w-full h-11 border rounded px-3 py-2 mt-1 align-bottom">
                 </div>
 
                 <div>
@@ -90,70 +90,67 @@
                     <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2"
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
-
-                <div class="col-span-2 flex justify-end mt-4">
-                    <button type="submit"
-                        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Enregistrer</button>
+            </div>
+            <div class="flex justify-center mt-8">
+                <button type="submit"
+                    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    <div class="grid grid-cols-3 gap-8 px-12 mt-8">
+        @foreach($trajets as $trajet)
+            <div
+                class="{{ $trajet->reset ? 'bg-green-100' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
+                <div class="self-end flex gap-6">
+                    <a href="{{ route('trajets.edit', $trajet->id) }}" class="text-yellow-600 hover:underline">
+                        Modifier
+                    </a>
+                    <form action="{{ route('trajets.destroy', $trajet->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer ce trajet ?')"
+                            class="text-red-600 hover:underline">Supprimer</button>
+                    </form>
                 </div>
-            </form>
-        </div>
-        <div class="mt-6">
-            {{ $trajets->links() }}
-        </div>
-        <!-- Liste des trajets avec pagination -->
-        <div class="space-y-6">
-            @foreach($trajets as $trajet)
-                <div class="bg-white shadow rounded-xl p-6 flex flex-col md:flex-row justify-between gap-6">
 
-                    <!-- Bouton supprimer -->
-                    <div class="self-end md:self-start">
-                        <form action="{{ route('trajets.destroy', $trajet->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer ce trajet ?')"
-                                class="text-red-600 hover:underline">Supprimer</button>
-                        </form>
-                    </div>
-
-                    <!-- Infos principales -->
-                    <div class="flex-1">
-                        <h3 class="font-bold text-lg mb-2">Infos principales</h3>
-                        <p>📅 {{ $trajet->date }}</p>
-                        <p>⚡ {{ $trajet->action }}</p>
-                        <p>📍 {{ $trajet->destination }}</p>
-                        <p>Reset: {{ $trajet->reset ? 'oui' : 'non' }}</p>
-                    </div>
-
-                    <!-- Données techniques -->
-                    <div class="flex-1">
-                        <h3 class="font-bold text-lg mb-2">Données techniques</h3>
-                        <p>📏 Km: {{ $trajet->km }}</p>
-                        <p>🔋 Batterie: {{ $trajet->pourcentage_batterie }}%</p>
-                        <p>🔋 Autonomie: {{ $trajet->autonomie }} km</p>
-                        <p>📐 Distance: {{ $trajet->distance }} km</p>
-                        <p>🏎️ Vitesse moy.: {{ $trajet->vitesse_moyenne }} km/h</p>
-                        <p>⚡ Conso moy.: {{ $trajet->consommation_moyenne }} kWh/100km</p>
-                        <p>📊 Conso tot.: {{ $trajet->consommation_totale }} kWh</p>
-                        <p>♻️ Énergie récup.: {{ $trajet->energie_recuperee }} kWh</p>
-                        <p>❄️ Conso clim.: {{ $trajet->consommation_clim }} kWh</p>
-                    </div>
-
-                    <!-- Calculs -->
-                    <div class="flex-1">
-                        <h3 class="font-bold text-lg mb-2">Calculs</h3>
-                        <p>Distance: {{ $trajet->distance() ?? 'N/A' }} km</p>
-                        <p>%Batterie: {{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
-                        <p>nb kw: {{ $trajet->nbKw() ?? 'N/A' }} kw</p>
-                        <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }} kWh/100km</p>
-                        <p>Conso tot/distance: {{ $trajet->consoTotDistance() ?? 'N/A' }} km</p>
-                    </div>
+                <!-- Infos principales -->
+                <div class="text-lg flex flex-col gap-2">
+                    <h3 class="font-bold text-xl mb-2">Infos principales</h3>
+                    <p>📅 {{ \Carbon\Carbon::parse($trajet->date)->format('d/m/Y') }}</p>
+                    <p>⚡ {{ $trajet->action }}</p>
+                    <p>📍 {{ $trajet->destination }}</p>
+                    <p>Reset: {{ $trajet->reset ? 'oui' : 'non' }}</p>
                 </div>
-            @endforeach
-        </div>
 
-        <!-- Pagination -->
-        <div class="mt-6">
-            {{ $trajets->links() }}
-        </div>
+                <!-- Données techniques -->
+                <div class="text-lg flex flex-col gap-2">
+                    <h3 class="font-bold text-2xl mb-2">Données techniques</h3>
+                    <p>📏 Km: {{ $trajet->km }}</p>
+                    <p>🔋 Batterie: {{ $trajet->pourcentage_batterie }}%</p>
+                    <p>🔋 Autonomie: {{ $trajet->autonomie }} km</p>
+                    <p>📐 Distance: {{ $trajet->distance }} km</p>
+                    <p>🏎️ Vitesse moy.: {{ $trajet->vitesse_moyenne }} km/h</p>
+                    <p>⚡ Conso moy.: {{ $trajet->consommation_moyenne }} kWh/100km</p>
+                    <p>📊 Conso tot.: {{ $trajet->consommation_totale }} kWh</p>
+                    <p>♻️ Énergie récup.: {{ $trajet->energie_recuperee }} kWh</p>
+                    <p>❄️ Conso clim.: {{ $trajet->consommation_clim }} kWh</p>
+                </div>
+
+                <!-- Calculs -->
+                <div class="text-lg flex flex-col gap-2">
+                    <h3 class="font-bold text-2xl mb-2">Calculs</h3>
+                    <p>Distance: {{ $trajet->distance() ?? 'N/A' }} km</p>
+                    <p>%Batterie: {{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
+                    <p>nb kw: {{ $trajet->nbKw() ?? 'N/A' }} kw</p>
+                    <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }} kWh/100km</p>
+                    <p>Conso tot/distance: {{ $trajet->consoTotDistance() ?? 'N/A' }} km</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <!-- Pagination -->
+    <div class="m-auto w-2/5 my-12">
+        {{ $trajets->links() }}
     </div>
 </x-layout>
