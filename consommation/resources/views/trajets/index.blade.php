@@ -143,7 +143,9 @@
                     <p>%Batterie: {{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
                     <p>nb kw: {{ $trajet->nbKw() ?? 'N/A' }} kw</p>
                     <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }} kWh/100km</p>
-                    <p>Conso tot/distance: {{ $trajet->consoTotDistance() ?? 'N/A' }} km</p>
+                    <p>Vitesse moy.: {{ $trajet->vitesseMoyenne() }} km/h</p>
+                    <p>Durée: {{$trajet->durée()}}</p>
+                    <p>Conso tot. depuis raz: {{ $trajet->consoTotDistance()}}</p>
                 </div>
             </div>
         @endforeach

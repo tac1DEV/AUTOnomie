@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\CarbonInterval;
 
 class Trajet extends Model
 {
@@ -36,28 +37,28 @@ class Trajet extends Model
 
     public function distance()
     {
-        $trajetPrecedent = self::where('date', '<', $this->date)
-            ->orderBy('date', 'desc')
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
             ->first();
         $distance = $trajetPrecedent ? $this->km - $trajetPrecedent->km : null;
 
-        return $distance == 0 || $distance === null ? 1 : $distance;
+        return $distance;
     }
 
 
     public function pourcentageBatterie()
     {
-        $trajetPrecedent = self::where('date', '<', $this->date)
-            ->orderBy('date', 'desc')
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
             ->first();
 
         return $trajetPrecedent ? $this->pourcentage_batterie - $trajetPrecedent->pourcentage_batterie : null;
 
     }
-    public function nbKw()
+    public function nbkw()
     {
-        $trajetPrecedent = self::where('date', '<', $this->date)
-            ->orderBy('date', 'desc')
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
             ->first();
 
         return $trajetPrecedent ? $this->consommation_totale - $trajetPrecedent->consommation_totale : null;
@@ -65,26 +66,48 @@ class Trajet extends Model
     }
     public function kwh100km()
     {
-        return $this->nbKw() / $this->distance();
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $distance = $trajetPrecedent ? $this->distance - $trajetPrecedent->distance : null;
+
+        return $distance ? round(($this->nbkw() / $distance) * 100, 2) . ' kwh/100km' : "#DIV/0!";
+
     }
-    // public function vitesseMoyenne()
-    // {
+    public function vitesseMoyenne()
+    {
 
-    //     $trajetPrecedent = self::where('id_voiture', $this->id_voiture)
-    //         ->where('created_at', '<', $this->created_at)
-    //         ->orderBy('created_at', 'desc')
-    //         ->first();
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
+            ->first();
 
-    //     return $trajetPrecedent ? $this->distance() / (($this->distance()) / ($this->vitesse_moyenne) - ($trajetPrecedent->distance() / $trajetPrecedent->vitesse_moyenne)) : null;
-    // }
+        $distance = $trajetPrecedent ? $this->distance - $trajetPrecedent->distance : null;
+
+        return $distance ? round($distance / (($this->distance / $this->vitesse_moyenne) - ($trajetPrecedent->distance / $trajetPrecedent->vitesse_moyenne)), 2) : "#DIV/0!";
+    }
 
     public function durée()
     {
-        return ($this->distance() / $this->vitesseMoyenne()) / 24;
+        $trajetPrecedent = self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $distance = $trajetPrecedent ? $this->distance - $trajetPrecedent->distance : null;
+
+        return $distance ? CarbonInterval::seconds(($distance / $this->vitesseMoyenne()) * 3600)->cascade()->format('%H:%I:%S') : "#DIV/0!";
     }
     public function consoTotDistance()
     {
-        return $this->consommation_totale / $this->distance();
+        if ($this->reset) {
+            $trajetPrecedent = self::where('id', '<', $this->id)
+                ->orderBy('id', 'desc')
+                ->first();
+            $distance = $trajetPrecedent ? $this->distance - $trajetPrecedent->distance : null;
+
+            return round(($this->consommation_totale * 100 / $distance), 2);
+        }
+        return round(($this->consommation_totale * 100 / $this->distance), 2);
     }
 
 
