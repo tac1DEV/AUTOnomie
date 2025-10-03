@@ -98,6 +98,11 @@
                     class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Enregistrer</button>
             </div>
         </form>
+
+        <!-- Pagination -->
+        <div class="m-auto w-2/5 my-12">
+            {{ $trajets->links() }}
+        </div>
     </div>
     <div class="grid grid-cols-3 gap-8 px-12 mt-8">
         @foreach($trajets as $trajet)
