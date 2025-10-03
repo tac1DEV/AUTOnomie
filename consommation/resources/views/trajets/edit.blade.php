@@ -92,12 +92,18 @@
                 <input type="number" name="consommation_clim" id="consommation_clim"
                     value="{{ $trajet->consommation_clim }}" required class="w-full border rounded px-3 py-2 mt-1">
             </div>
+            <div>
+                <label for="commentaire" class="block font-medium">Commentaire</label>
+                <input type="text" name="commentaire" id="commentaire" maxlength="255" placeholder="Bleu HC, Bleu HP..."
+                    class="w-full border rounded px-3 py-2 mt-1" value="{{ $trajet->commentaire }}" />
+
+            </div>
 
             <div class="col-span-1 md:col-span-2 flex justify-center mt-4 gap-6">
                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
                     Mettre à jour
                 </button>
-                <a href="/" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                <a href="/" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">
                     Annuler
                 </a>
             </div>

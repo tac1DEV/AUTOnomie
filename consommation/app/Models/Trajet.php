@@ -25,15 +25,10 @@ class Trajet extends Model
         'consommation_totale',
         'energie_recuperee',
         'consommation_clim',
-        'id_commentaire',
+        'commentaire',
     ];
 
     public $timestamps = false;
-
-    public function commentaire()
-    {
-        return $this->belongsTo(Commentaire::class, 'id_commentaire');
-    }
 
     public function distance()
     {
@@ -72,7 +67,7 @@ class Trajet extends Model
 
         $distance = $trajetPrecedent ? $this->distance - $trajetPrecedent->distance : null;
 
-        return $distance ? round(($this->nbkw() / $distance) * 100, 2) . ' kwh/100km' : "#DIV/0!";
+        return $distance ? round(($this->nbkw() / $distance) * 100, 2) : "#DIV/0!";
 
     }
     public function vitesseMoyenne()

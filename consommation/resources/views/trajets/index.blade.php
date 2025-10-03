@@ -6,7 +6,7 @@
 
         <form action="{{ route('trajets.store') }}" method="POST">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-14 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
                     <label for="date" class="block font-medium">📅 Date</label>
                     <input type="date" name="date" id="date" required class="w-full border rounded px-3 py-2 mt-1">
@@ -92,6 +92,11 @@
                     <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2"
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
+                <div>
+                    <label for="commentaire" class="block font-medium">Commentaire</label>
+                    <input type="text" name="commentaire" id="commentaire" required
+                        class="w-full border rounded px-3 py-2 mt-1">
+                </div>
             </div>
             <div class="flex justify-center mt-8">
                 <button type="submit"
@@ -149,11 +154,23 @@
                     <p>Distance: {{ $trajet->distance() ?? 'N/A' }} km</p>
                     <p>%Batterie: {{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
                     <p>nb kw: {{ $trajet->nbKw() ?? 'N/A' }} kw</p>
-                    <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }} kWh/100km</p>
-                    <p>Vitesse moy.: {{ $trajet->vitesseMoyenne() }} km/h</p>
+                    <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }}</p>
+                    @if($trajet->vitesseMoyenne() == '#DIV/0!')
+                        <p>Vitesse moy.: DIV/0!</p>
+                    @else
+                        <p>Vitesse moy.: {{ $trajet->vitesseMoyenne() }} km/h</p>
+                    @endif
                     <p>Durée: {{$trajet->durée()}}</p>
-                    <p>Conso tot. depuis raz: {{$trajet->reset ? 0 : $trajet->consoTotDistance()}}</p>
+                    <p>Conso tot. depuis raz: {{$trajet->reset ? 0 : $trajet->consoTotDistance()}} kw</p>
                 </div>
+
+                <!-- Commentaire -->
+                @if($trajet->commentaire)
+                    <div class="text-lg flex flex-col gap-2">
+                        <h3 class="font-bold text-2xl mb-2">Commentaire</h3>
+                        <p>{{ $trajet->commentaire }}</p>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>

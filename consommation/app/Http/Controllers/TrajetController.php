@@ -31,6 +31,7 @@ class TrajetController extends Controller
             'consommation_totale' => 'required|integer|min:0',
             'energie_recuperee' => 'required|integer|min:0',
             'consommation_clim' => 'required|integer|min:0',
+            'commentaire' => 'nullable|string|max:255',
         ]);
 
         Trajet::create($validated);
@@ -63,6 +64,7 @@ class TrajetController extends Controller
             'consommation_totale' => 'required|integer|min:0',
             'energie_recuperee' => 'required|integer|min:0',
             'consommation_clim' => 'required|integer|min:0',
+            'commentaire' => 'nullable|string|max:255',
         ]);
 
         $trajet->update($validated);
