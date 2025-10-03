@@ -49,6 +49,7 @@ class TrajetController extends Controller
     {
         $trajet = Trajet::findOrFail($id);
 
+
         $validated = $request->validate([
             'date' => 'required|date',
             'action' => 'required|string|max:255',
@@ -58,19 +59,19 @@ class TrajetController extends Controller
             'autonomie' => 'required|integer|min:0',
             'type' => 'required|string|max:3',
             'reset' => 'nullable|boolean',
-            'distance' => 'required|integer|min:0',
-            'vitesse_moyenne' => 'required|integer|min:0',
-            'consommation_moyenne' => 'required|integer|min:0',
-            'consommation_totale' => 'required|integer|min:0',
-            'energie_recuperee' => 'required|integer|min:0',
-            'consommation_clim' => 'required|integer|min:0',
+            'distance' => 'required|numeric|min:0',
+            'vitesse_moyenne' => 'required|numeric|min:0',
+            'consommation_moyenne' => 'required|numeric|min:0',
+            'consommation_totale' => 'required|numeric|min:0',
+            'energie_recuperee' => 'required|numeric|min:0',
+            'consommation_clim' => 'required|numeric|min:0',
             'commentaire' => 'nullable|string|max:255',
         ]);
 
         $trajet->update($validated);
-
         return redirect()->route('trajets.index')->with('success', 'Trajet mis à jour avec succès.');
     }
+
     public function destroy($id)
     {
         // Récupère le trajet par son ID

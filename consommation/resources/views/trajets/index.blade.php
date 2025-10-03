@@ -165,7 +165,7 @@
                 </div>
 
                 <!-- Commentaire -->
-                @if($trajet->commentaire)
+                @if(!empty(trim($trajet->commentaire ?? '')))
                     <div class="text-lg flex flex-col gap-2">
                         <h3 class="font-bold text-2xl mb-2">Commentaire</h3>
                         <p>{{ $trajet->commentaire }}</p>
