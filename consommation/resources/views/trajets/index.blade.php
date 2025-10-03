@@ -31,6 +31,18 @@
                 </div>
 
                 <div>
+                    <label for="pourcentage_batterie" class="block font-medium">🔋 % Batterie</label>
+                    <input type="number" name="pourcentage_batterie" id="pourcentage_batterie" placeholder="85" min="0"
+                        max="100" class="w-full border rounded px-3 py-2 mt-1" required>
+                </div>
+
+                <div>
+                    <label for="autonomie" class="block font-medium">🔋 Autonomie (km)</label>
+                    <input type="number" name="autonomie" id="autonomie" placeholder="350"
+                        class="w-full border rounded px-3 py-2 mt-1" required>
+                </div>
+                
+                <div>
                     <label for="type" class="block font-medium">Type</label>
                     <input type="text" name="type" id="type" placeholder="MA"
                         class="w-full border rounded px-3 py-2 mt-1" required>
@@ -43,11 +55,6 @@
                         class="w-full h-11 border rounded px-3 py-2 mt-1 align-bottom">
                 </div>
 
-                <div>
-                    <label for="autonomie" class="block font-medium">🔋 Autonomie (km)</label>
-                    <input type="number" name="autonomie" id="autonomie" placeholder="350"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
 
                 <div>
                     <label for="distance" class="block font-medium">📐 Distance (km)</label>
@@ -61,11 +68,6 @@
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
 
-                <div>
-                    <label for="pourcentage_batterie" class="block font-medium">🔋 % Batterie</label>
-                    <input type="number" name="pourcentage_batterie" id="pourcentage_batterie" placeholder="85" min="0"
-                        max="100" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
 
                 <div>
                     <label for="consommation_moyenne" class="block font-medium">⚡ Conso Moy.</label>
