@@ -14,19 +14,19 @@
 
                 <div>
                     <label for="action" class="block font-medium">⚡ Action</label>
-                    <input type="text" name="action" id="action" placeholder="Travail, Loisir..."
+                    <input type="text" name="action" id="action" placeholder="n104 n2, moissy..."
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
 
                 <div>
                     <label for="destination" class="block font-medium">📍 Destination</label>
-                    <input type="text" name="destination" id="destination" placeholder="Paris, Lyon..."
+                    <input type="text" name="destination" id="destination" placeholder="maison, CDG..."
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
 
                 <div>
                     <label for="km" class="block font-medium">📏 Kilomètres</label>
-                    <input type="number" name="km" id="km" placeholder="120"
+                    <input type="number" name="km" id="km" placeholder="120000"
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
 
@@ -41,7 +41,7 @@
                     <input type="number" name="autonomie" id="autonomie" placeholder="350"
                         class="w-full border rounded px-3 py-2 mt-1" required>
                 </div>
-                
+
                 <div>
                     <label for="type" class="block font-medium">Type</label>
                     <input type="text" name="type" id="type" placeholder="MA"
@@ -102,16 +102,16 @@
     <div class="grid grid-cols-3 gap-8 px-12 mt-8">
         @foreach($trajets as $trajet)
             <div
-                class="{{ $trajet->reset ? 'bg-green-100' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
+                class="{{ $trajet->reset ? 'bg-green-200' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
                 <div class="self-end flex gap-6">
-                    <a href="{{ route('trajets.edit', $trajet->id) }}" class="text-yellow-600 hover:underline">
+                    <a href="{{ route('trajets.edit', $trajet->id) }}" class="text-xl text-yellow-600 hover:underline">
                         Modifier
                     </a>
                     <form action="{{ route('trajets.destroy', $trajet->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer ce trajet ?')"
-                            class="text-red-600 hover:underline">Supprimer</button>
+                            class="text-xl text-red-600 hover:underline">Supprimer</button>
                     </form>
                 </div>
 
@@ -147,7 +147,7 @@
                     <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }} kWh/100km</p>
                     <p>Vitesse moy.: {{ $trajet->vitesseMoyenne() }} km/h</p>
                     <p>Durée: {{$trajet->durée()}}</p>
-                    <p>Conso tot. depuis raz: {{ $trajet->consoTotDistance()}}</p>
+                    <p>Conso tot. depuis raz: {{$trajet->reset ? 0 : $trajet->consoTotDistance()}}</p>
                 </div>
             </div>
         @endforeach
