@@ -46,6 +46,19 @@ class RechargeController extends Controller
 
         $validated['pu_chrg_kwh'] = round($validated['kw_charge'] / max($dureeHeures, 0.001), 3);
         $validated['cout'] = round($validated['pu_chrg_kwh'] * $validated['kw_charge'], 2);
+
+        // --- Calcul du ratio batterie ---
+        $trajet = Trajet::find($validated['trajet_id']);
+        $trajetPrecedent = Trajet::where('id', '<', $trajet->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($trajetPrecedent) {
+            $validated['ratio_batterie'] = $trajet->pourcentage_batterie - $trajetPrecedent->pourcentage_batterie;
+        } else {
+            $validated['ratio_batterie'] = null; // Pas de trajet précédent
+        }
+
         $recharge = Recharge::create($validated);
 
         if ($recharge) {

@@ -15,7 +15,8 @@ class Recharge extends Model
         'kw_charge',
         'prix_kwh',
         'pu_chrg_kwh',
-        'cout'
+        'cout',
+        'ratio_batterie'
     ];
 
     public $timestamps = false;
