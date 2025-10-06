@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TrajetController;
 use App\Http\Controllers\RechargeController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', [TrajetController::class, 'index'])->name('trajets.index');
@@ -19,3 +20,5 @@ Route::post('/recharges/create/{id}', [RechargeController::class, 'store'])->nam
 Route::get('/recharges/{id}/edit', [RechargeController::class, 'edit'])->name('recharges.edit');
 Route::put('/recharges/{id}', [RechargeController::class, 'update'])->name('recharges.update');
 Route::delete('/recharges/{id}', [RechargeController::class, 'destroy'])->name('recharges.destroy');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
