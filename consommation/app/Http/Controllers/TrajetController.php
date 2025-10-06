@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trajet;
-use App\Models\Voiture;
 use Illuminate\Http\Request;
 
 class TrajetController extends Controller
@@ -41,8 +40,9 @@ class TrajetController extends Controller
     }
     public function edit($id)
     {
+        $types = Trajet::distinct()->pluck('type');
         $trajet = Trajet::findOrFail($id); // récupère le trajet ou renvoie 404
-        return view('trajets.edit', compact('trajet'));
+        return view('trajets.edit', compact('trajet', 'types'));
     }
 
     public function update(Request $request, $id)

@@ -10,17 +10,13 @@ class Recharge extends Model
     use HasFactory;
 
     protected $fillable = [
+        'trajet_id',
         'duree',
         'kw_charge',
         'prix_kwh',
-        'pu_charge_kwh',
-        'cout',
-        'pourcentage',
-        'id_commentaire'
+        'pu_chrg_kwh',
+        'cout'
     ];
 
-    public function commentaire()
-    {
-        return $this->belongsTo(Commentaire::class, 'id_commentaire');
-    }
+    public $timestamps = false;
 }

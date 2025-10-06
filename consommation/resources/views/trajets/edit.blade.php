@@ -2,6 +2,14 @@
     <div class="container mx-auto p-6 space-y-8 bg-white shadow rounded-xl">
         <h2 class="text-xl font-bold mb-4 text-center">Modifier le trajet</h2>
 
+        @if($trajet->type == "CH")
+            <div class="col-span-1 md:col-span-2 flex justify-center mt-4 gap-6">
+                <a href="{{ route('recharges.create', $trajet->id) }}"
+                    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                    Ajouter une charge
+                </a>
+            </div>
+        @endif
         <form action="{{ route('trajets.update', $trajet->id) }}" method="POST"
             class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @csrf
@@ -33,8 +41,12 @@
 
             <div>
                 <label for="type" class="block font-medium">Type</label>
-                <input type="text" name="type" id="type" value="{{ $trajet->type }}" required
-                    class="w-full border rounded px-3 py-2 mt-1">
+                <select name="type" id="type" class="w-full border rounded px-3 py-2 mt-1">
+                    <option value="{{ $trajet->type }}" selected>{{ $trajet->type ?? 'NULL' }}</option>
+                    @foreach($types->where('type', '!=', $trajet->type) as $type)
+                        <option value="{{ $type }}">{{ $type }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div>

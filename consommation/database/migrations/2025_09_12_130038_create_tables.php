@@ -34,9 +34,10 @@ return new class extends Migration {
             $table->integer('duree');
             $table->integer('kw_charge');
             $table->integer('prix_kwh');
-            $table->integer('pu_charge_kwh');
+            $table->integer('pu_chrg_kwh');
             $table->integer('cout');
-            $table->integer('pourcentage');
+            $table->integer('trajet_id');
+            $table->integer('ratio_batterie');
             $table->timestamps();
         });
 

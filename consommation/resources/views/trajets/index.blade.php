@@ -44,8 +44,21 @@
 
                 <div>
                     <label for="type" class="block font-medium">Type</label>
-                    <input type="text" name="type" id="type" placeholder="MA"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
+                    <select name="type" id="type" class="w-full border rounded px-3 py-2 mt-1" required>
+                        <option value="">NULL</option>
+                        <option value="CH">CH</option>
+                        <option value="voy">voy</option>
+                        <option value="MA">MA</option>
+                        <option value="MR">MR</option>
+                        <option value="eco">eco</option>
+                        <option value="SA">SA</option>
+                        <option value="SR">SR</option>
+                        <option value="NA">NA</option>
+                        <option value="NR">NR</option>
+                        <option value="vis">vis</option>
+                        <option value="?">?</option>
+                        <option value="CMH">CMH</option>
+                    </select>
                 </div>
 
                 <div>
@@ -112,7 +125,7 @@
     <div class="grid grid-cols-3 gap-8 px-12 mt-8">
         @foreach($trajets as $trajet)
             <div
-                class="{{ $trajet->reset ? 'bg-green-200' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
+                class="{{ $trajet->pourcentageBatterie() > 0 ? 'bg-green-200' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
                 <div class="self-end flex gap-6">
                     <a href="{{ route('trajets.edit', $trajet->id) }}" class="text-xl text-yellow-600 hover:underline">
                         Modifier
@@ -132,6 +145,7 @@
                     <p>⚡ {{ $trajet->action }}</p>
                     <p>📍 {{ $trajet->destination }}</p>
                     <p>Reset: {{ $trajet->reset ? 'oui' : 'non' }}</p>
+                    <p>Type de trajet: {{ $trajet->type }}</p>
                 </div>
 
                 <!-- Données techniques -->
