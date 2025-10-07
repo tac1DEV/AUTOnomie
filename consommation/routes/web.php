@@ -20,5 +20,3 @@ Route::post('/recharges/create/{id}', [RechargeController::class, 'store'])->nam
 Route::get('/recharges/{id}/edit', [RechargeController::class, 'edit'])->name('recharges.edit');
 Route::put('/recharges/{id}', [RechargeController::class, 'update'])->name('recharges.update');
 Route::delete('/recharges/{id}', [RechargeController::class, 'destroy'])->name('recharges.destroy');
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
