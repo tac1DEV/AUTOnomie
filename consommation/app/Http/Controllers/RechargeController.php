@@ -14,17 +14,10 @@ class RechargeController extends Controller
         return view('recharges.index', compact('recharges'));
     }
 
-    public function create($id)
+    public function create()
     {
-        $trajet = Trajet::findOrFail($id);
-        return view('recharges.create', compact('trajet'));
+        return view('recharges.create');
     }
-    public function show($id)
-    {
-        $recharge = Recharge::findOrFail($id);
-        return view('recharges.show', compact('recharge'));
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([

@@ -13,6 +13,10 @@ class TrajetController extends Controller
 
         return view('trajets.index', compact('trajets'));
     }
+    public function create()
+    {
+        return view('trajets.create');
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
