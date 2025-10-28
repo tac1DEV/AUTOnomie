@@ -21,49 +21,53 @@ class RechargeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'trajet_id' => 'required|numeric',
-            'duree' => ['required', 'date_format:H:i:s'],
-            'kw_charge' => 'required|numeric|min:0',
-            'prix_kwh' => 'required|numeric|min:0',
+            'date' => ['required', 'date'],
+            'duree' => ['required', 'date_format:H:i'],
+            'kw_charge' => ['required', 'numeric', 'min:0'],
+            'prix_kwh' => ['required', 'numeric', 'min:0'],
+            'pourcentage_batterie' => ['required', 'numeric', 'min:0'],
+            'commentaire' => ['nullable', 'string', 'max:100'],
         ]);
 
-        $exists = Recharge::where('trajet_id', $validated['trajet_id'])
-            ->exists();
-
-        if ($exists) {
-            return redirect()->back()->withInput()->with('error', 'Cette recharge existe déjà.');
-        }
-
+        // Calcul pu_chrg_kwh
         $dureeSecondes = strtotime($validated['duree']) - strtotime('00:00:00');
         $dureeHeures = $dureeSecondes / 3600;
 
         $validated['pu_chrg_kwh'] = round($validated['kw_charge'] / max($dureeHeures, 0.001), 3);
-        $validated['cout'] = round($validated['pu_chrg_kwh'] * $validated['kw_charge'], 2);
+        // pu_chrg_kwh
 
-        // --- Calcul du ratio batterie ---
-        $trajet = Trajet::find($validated['trajet_id']);
-        $trajetPrecedent = Trajet::where('id', '<', $trajet->id)
-            ->orderBy('id', 'desc')
-            ->first();
+        // Calcul cout
+        $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
+        // cout
 
-        if ($trajetPrecedent) {
-            $validated['ratio_batterie'] = $trajet->pourcentage_batterie - $trajetPrecedent->pourcentage_batterie;
-        } else {
-            $validated['ratio_batterie'] = null; // Pas de trajet précédent
-        }
+        // Calcul ratio_batterie
+        $dernierTrajet = Trajet::orderBy('id', 'desc')->first();
 
+        $nouveauPourcentage = $validated['pourcentage_batterie'];
+
+        $ratioBatterie = $dernierTrajet
+            ? $nouveauPourcentage - $dernierTrajet->pourcentage_batterie
+            : 0;
+
+        $validated['ratio_batterie'] = $ratioBatterie;
+        // ratio_batterie
+
+        // Créer la recharge
         $recharge = Recharge::create($validated);
+
 
         if ($recharge) {
             return redirect()->route('recharges.index')->with('success', 'Recharge créée avec succès.');
         } else {
+            // Pour ne pas perdre la progression du form
             return redirect()->back()->withInput()->with('error', 'Erreur lors de la création de la recharge.');
         }
     }
 
+
     public function edit($id)
     {
-        $recharge = Recharge::findOrFail($id); // récupère le Recharge ou renvoie 404
+        $recharge = Recharge::findOrFail($id); // récupère la Recharge ou renvoie 404
         return view('recharges.edit', compact('recharge'));
     }
 
@@ -71,25 +75,43 @@ class RechargeController extends Controller
     {
         $recharge = Recharge::findOrFail($id);
 
-
         $validated = $request->validate([
-            'duree' => ['required', 'date_format:H:i:s'],
-            'kw_charge' => 'required|numeric',
-            'prix_kwh' => 'required|numeric',
+            'date' => ['required', 'date'],
+            'duree' => ['required', 'date_format:H:i'],
+            'kw_charge' => ['required', 'numeric', 'min:0'],
+            'prix_kwh' => ['required', 'numeric', 'min:0'],
+            'pourcentage_batterie' => ['required', 'numeric', 'min:0'],
+            'commentaire' => ['nullable', 'string', 'max:100'],
         ]);
 
-
+        // Calcul pu_chrg_kwh
         $dureeSecondes = strtotime($validated['duree']) - strtotime('00:00:00');
         $dureeHeures = $dureeSecondes / 3600;
 
-        $validated['pu_chrg_kwh'] = round($validated['kw_charge'] / max($dureeHeures, 1), 3);
+        $validated['pu_chrg_kwh'] = round($validated['kw_charge'] / max($dureeHeures, 0.001), 3);
+        // pu_chrg_kwh
 
-        $validated['cout'] = round($validated['prix_kwh'] * $validated['kw_charge'], 2);
+        // Calcul cout
+        $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
+        // cout
+
+        // Calcul ratio_batterie
+        $dernierTrajet = Trajet::orderBy('id', 'desc')->first();
+
+        $nouveauPourcentage = $validated['pourcentage_batterie'];
+
+        $ratioBatterie = $dernierTrajet
+            ? $nouveauPourcentage - $dernierTrajet->pourcentage_batterie
+            : 0;
+
+        $validated['ratio_batterie'] = $ratioBatterie;
+        // ratio_batterie
 
         $recharge->update($validated);
 
         return redirect()->route('recharges.index')->with('success', 'Recharge mise à jour avec succès.');
     }
+
 
     public function destroy($id)
     {
