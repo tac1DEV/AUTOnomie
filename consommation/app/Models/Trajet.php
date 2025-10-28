@@ -24,8 +24,7 @@ class Trajet extends Model
         'consommation_moyenne',
         'consommation_totale',
         'energie_recuperee',
-        'consommation_clim',
-        'commentaire',
+        'consommation_clim'
     ];
 
     public $timestamps = false;
