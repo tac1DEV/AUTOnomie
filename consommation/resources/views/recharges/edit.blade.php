@@ -1,36 +1,68 @@
 <x-layout>
-    <div class="container mx-auto p-6 space-y-8 bg-white shadow rounded-xl">
-        <h2 class="text-xl font-bold mb-4 text-center">Modifier la recharge</h2>
+    <div class="max-w-2xl mx-auto p-8 my-8 bg-white shadow-lg rounded-2xl border border-gray-200">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-8">Modifier la recharge</h2>
 
-        <form action="{{ route('recharges.update', $recharge->id) }}" method="POST"
-            class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form action="{{ route('recharges.update', $recharge->id) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
+            <!-- Date -->
             <div>
-                <label for="duree" class="block font-medium">Durée</label>
-                <input type="time" step="1" name="duree" id="duree" value="{{ $recharge->duree }}" required
-                    class="w-full border rounded px-3 py-2 mt-1">
+                <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date:</label>
+                <input type="date" name="date" id="date" value="{{ old('date', $recharge->date) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
+            <!-- Durée -->
             <div>
-                <label for="kw_charge" class="block font-medium">KW Charge</label>
-                <input type="number" step="0.01" name="kw_charge" id="kw_charge" value="{{ $recharge->kw_charge }}"
-                    required class="w-full border rounded px-3 py-2 mt-1">
+                <label for="duree" class="block text-sm font-medium text-gray-700 mb-1">Durée: (HH:mm)</label>
+                <input type="time" name="duree" id="duree"
+                    value="{{ old('duree', \Carbon\Carbon::parse($recharge->duree)->format('H:i')) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
+
             </div>
 
+            <!-- KW Charge -->
             <div>
-                <label for="prix_kwh" class="block font-medium">Prix KWh (€)</label>
-                <input type="number" step="any" min="0" name="prix_kwh" id="prix_kwh" value="{{ $recharge->prix_kwh }}"
-                    required class="w-full border rounded px-3 py-2 mt-1">
+                <label for="kw_charge" class="block text-sm font-medium text-gray-700 mb-1">KW Charge:</label>
+                <input type="number" step="0.01" name="kw_charge" id="kw_charge"
+                    value="{{ old('kw_charge', $recharge->kw_charge) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
-            <div class="col-span-1 md:col-span-2 flex justify-center mt-4 gap-6">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+            <!-- Prix KWh -->
+            <div>
+                <label for="prix_kwh" class="block text-sm font-medium text-gray-700 mb-1">Prix KWh: (€)</label>
+                <input type="number" step="0.0001" min="0" name="prix_kwh" id="prix_kwh"
+                    value="{{ old('prix_kwh', $recharge->prix_kwh) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
+            </div>
+
+            <!-- Pourcentage batterie -->
+            <div>
+                <label for="pourcentage_batterie" class="block text-sm font-medium text-gray-700 mb-1">Pourcentage
+                    batterie (après charge): (%)</label>
+                <input type="number" step="1" min="0" max="100" name="pourcentage_batterie" id="pourcentage_batterie"
+                    value="{{ old('pourcentage_batterie', $recharge->pourcentage_batterie) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
+            </div>
+            <!-- Commentaire -->
+            <div>
+                <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-1">Commentaire: (max 100
+                    carac.)</label>
+                <textarea name="commentaire" id="commentaire" rows="3" maxlength="100"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-xl 
+                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">{{ old('commentaire', $recharge->commentaire) }}</textarea>
+            </div>
+
+            <!-- Boutons -->
+            <div class="flex justify-center gap-8 pt-4 mb-8">
+                <button type="submit" class="inline-flex items-center px-6 py-2 bg-blue-600 text-white text-lg font-medium rounded-xl 
+                           border border-gray-300 shadow-sm hover:bg-blue-700 transition">
                     Mettre à jour
                 </button>
-                <a href="{{ route('recharges.index') }}"
-                    class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">
+                <a href="{{ route('recharges.index') }}" class="inline-flex items-center px-6 py-2 bg-gray-100 text-gray-700 text-lg font-medium rounded-xl 
+                           border border-gray-300 shadow-sm hover:bg-gray-200 transition">
                     Annuler
                 </a>
             </div>
