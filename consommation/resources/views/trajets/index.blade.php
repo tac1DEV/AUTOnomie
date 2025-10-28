@@ -1,131 +1,18 @@
 <x-layout>
-
-    <!-- Formulaire de création -->
-    <div class="mx-auto space-y-8 rounded-xl px-12">
-        <h2 class="text-xl font-bold mb-4 text-center">Ajouter un trajet</h2>
-
-        <form action="{{ route('trajets.store') }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <div>
-                    <label for="date" class="block font-medium">📅 Date</label>
-                    <input type="date" name="date" id="date" required class="w-full border rounded px-3 py-2 mt-1">
-                </div>
-
-                <div>
-                    <label for="action" class="block font-medium">⚡ Action</label>
-                    <input type="text" name="action" id="action" placeholder="n104 n2, moissy..."
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="destination" class="block font-medium">📍 Destination</label>
-                    <input type="text" name="destination" id="destination" placeholder="maison, CDG..."
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="km" class="block font-medium">📏 Kilomètres</label>
-                    <input type="number" name="km" id="km" placeholder="120000"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="pourcentage_batterie" class="block font-medium">🔋 % Batterie</label>
-                    <input type="number" name="pourcentage_batterie" id="pourcentage_batterie" placeholder="85" min="0"
-                        max="100" class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="autonomie" class="block font-medium">🔋 Autonomie (km)</label>
-                    <input type="number" name="autonomie" id="autonomie" placeholder="350"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="type" class="block font-medium">Type</label>
-                    <select name="type" id="type" class="w-full border rounded px-3 py-2 mt-1" required>
-                        <option value="">NULL</option>
-                        <option value="CH">CH</option>
-                        <option value="voy">voy</option>
-                        <option value="MA">MA</option>
-                        <option value="MR">MR</option>
-                        <option value="eco">eco</option>
-                        <option value="SA">SA</option>
-                        <option value="SR">SR</option>
-                        <option value="NA">NA</option>
-                        <option value="NR">NR</option>
-                        <option value="vis">vis</option>
-                        <option value="?">?</option>
-                        <option value="CMH">CMH</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for=" reset" class="font-medium">Reset</label>
-                    <input type="hidden" name="reset" value="0">
-                    <input type="checkbox" name="reset" id="reset" value="1"
-                        class="w-full h-11 border rounded px-3 py-2 mt-1 align-bottom">
-                </div>
-
-
-                <div>
-                    <label for="distance" class="block font-medium">📐 Distance (km)</label>
-                    <input type="number" name="distance" id="distance" placeholder="115"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="vitesse_moyenne" class="block font-medium">🏎️ Vitesse Moy.</label>
-                    <input type="number" name="vitesse_moyenne" id="vitesse_moyenne" placeholder="90"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-
-                <div>
-                    <label for="consommation_moyenne" class="block font-medium">⚡ Conso Moy.</label>
-                    <input type="number" name="consommation_moyenne" id="consommation_moyenne" placeholder="15"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="consommation_totale" class="block font-medium">📊 Conso Totale</label>
-                    <input type="number" name="consommation_totale" id="consommation_totale" placeholder="18"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="energie_recuperee" class="block font-medium">♻️ Énergie Récup.</label>
-                    <input type="number" name="energie_recuperee" id="energie_recuperee" placeholder="3"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-
-                <div>
-                    <label for="consommation_clim" class="block font-medium">❄️ Conso Clim</label>
-                    <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2"
-                        class="w-full border rounded px-3 py-2 mt-1" required>
-                </div>
-                <div>
-                    <label for="commentaire" class="block font-medium">Commentaire</label>
-                    <input type="text" name="commentaire" id="commentaire" required
-                        class="w-full border rounded px-3 py-2 mt-1">
-                </div>
-            </div>
-            <div class="flex justify-center mt-8">
-                <button type="submit"
-                    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Enregistrer</button>
-            </div>
-        </form>
-
-        <!-- Pagination -->
-        <div class="m-auto w-2/5 my-12">
-            {{ $trajets->links() }}
-        </div>
+    <h1 class="text-2xl font-bold text-center my-8">Liste des trajets</h1>
+    <div class="flex justify-end mb-4 px-12">
+        <a href="{{ route('trajets.create') }}"
+            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xl font-medium rounded-xl shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Nouveau trajet
+        </a>
     </div>
+
     <div class="grid grid-cols-3 gap-8 px-12 mt-8">
         @foreach($trajets as $trajet)
-            <div
-                class="{{ $trajet->pourcentageBatterie() > 0 ? 'bg-green-200' : 'bg-white' }} shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
+            <div class="shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
                 <div class="self-end flex gap-6">
                     <a href="{{ route('trajets.edit', $trajet->id) }}" class="text-xl text-yellow-600 hover:underline">
                         Modifier
