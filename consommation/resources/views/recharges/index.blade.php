@@ -31,14 +31,16 @@
                     <!-- Infos principales -->
                     <div class="text-lg flex flex-col gap-2">
                         <h3 class="font-bold text-xl mb-2">Infos principales</h3>
-                        <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($recharge->date)->format('d/m/Y') }}</p>
-                        <p><strong>Durée:</strong> {{ \Carbon\Carbon::parse($recharge->duree)->format('H:i') }} h</p>
-                        <p><strong>KW Charge:</strong> {{ $recharge->kw_charge }}</p>
-                        <p><strong>Prix KWh:</strong> {{ $recharge->prix_kwh }} €</p>
-                        <p><strong>Pu Chrg kw/H:</strong> {{ $recharge->pu_chrg_kwh }} €</p>
-                        <p><strong>Coût:</strong> {{ $recharge->cout }} €</p>
-                        <p><strong>Ratio batterie:</strong> {{ $recharge->ratio_batterie ?? 'N/A' }} %</p>
-                        <p><strong>Commentaire:</strong> {{ $recharge->commentaire ?? '/' }}</p>
+                        <p>Date: <strong>{{ \Carbon\Carbon::parse($recharge->date)->format('d/m/Y') }}</strong></p>
+                        <p>Durée: <strong>{{ \Carbon\Carbon::parse($recharge->duree)->format('H:i') }} h</strong></p>
+                        <p>KW Charge: <strong>{{ $recharge->kw_charge }}</strong></p>
+                        <p>Prix KWh: <strong>{{ $recharge->prix_kwh }} €</strong></p>
+                        <p>Pu Chrg kw/H: <strong>{{ $recharge->pu_chrg_kwh }} €</strong></p>
+                        <p>Coût: <strong>{{ $recharge->cout }} €</strong></p>
+                        <p>Ratio batterie: <strong>{{ $recharge->ratio_batterie ?? 'N/A' }} %</strong></p>
+                        @if($recharge->commentaire)
+                            <p>Commentaire: <strong>{{ $recharge->commentaire }}</strong></p>
+                        @endif
                     </div>
                 </div>
             @endforeach
