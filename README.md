@@ -1,146 +1,89 @@
-# Gestionnaire_consommation
-Application pour surveiller la consommation de son véhicule électrique
+# 🚗 AUTOnomie – Gestionnaire de consommation électrique
 
-## **Installation Rapide**
-
-### **Prérequis**
-- **Docker Desktop** installé et en cours d’exécution
-- **Git** installé
-- **Composer** et **NPM** installés globalement
+## 🧭 Introduction
+**AUTOnomie** est une application web conçue pour aider les conducteurs de véhicules électriques à suivre, analyser et optimiser leur consommation énergétique.  
+Elle permet d’enregistrer les trajets et recharges, puis de visualiser en temps réel la consommation, les coûts énergétiques et l’autonomie du véhicule via une interface claire et ergonomique.
 
 ---
 
-### **Étapes d’installation**
-```bash
-# 1. Cloner le projet
-git clone https://github.com/tac1DEV/gestionnaire_consommation.git
-cd gestionnaire_consommation
+## ⚙️ Fonctionnalités
 
-# 2. Copier le fichier d'environnement
-cp .env.example .env
+### 🔋 Suivi de la consommation
+- Visualisation de la consommation par **trajet** ou par **période** (jour, semaine, mois, année).  
+- Comparaison de la consommation entre différentes périodes ou trajets.
 
-# 3. Installer les dépendances
-composer install
-npm install
+### 🚗 Analyse des trajets
+- Détails complets : date, destination, distance, pourcentage de batterie, autonomie, type de trajet, vitesse moyenne, consommation moyenne et totale, énergie récupérée, durée, etc.  
+- Analyse statistique selon le type de trajet (urbain, autoroute, mixte).  
+- Évaluation de l’efficacité énergétique (kWh/100 km).
 
-# 4. Démarrer l'environnement Docker
-./vendor/bin/sail up -d
+### 💰 Suivi des coûts
+- Estimation du **coût énergétique** par trajet ou période.  
 
-# 5. Configurer l'application
-./vendor/bin/sail artisan key:generate
-./vendor/bin/sail artisan migrate:fresh --seed
-./vendor/bin/sail npm run dev
-```
+### ⚡ Autonomie et batterie
+- Suivi de l’autonomie restante.  
+- Courbe d’évolution de la batterie.  
+- Alertes en cas de batterie faible ou de consommation anormale.
 
-**Accès local :**
-- Application : [http://localhost](http://localhost)
-- Base de données : PostgreSQL sur `localhost:5432`
-- Données de test : incluses automatiquement
+### 📊 Interface & accessibilité
+- Interface optimisée pour **desktop**, avec pages dédiées :
+  - **Trajets** : liste, ajout, modification et suppression.
+  - **Recharges** : gestion complète des recharges.
+  - **Graphiques** : visualisation en temps réel de la consommation et des coûts.
 
 ---
 
-## **Dépannage**
+## 🏗️ Architecture
 
-### **Erreurs fréquentes :**
-- **Permission denied (Linux/macOS)**  
-```bash
-chmod +x vendor/bin/sail
-./vendor/bin/sail up -d
-```
-- **Port 80 occupé**  
-Modifier dans `.env` :  
-```env
-APP_PORT=8080
-```
-Puis redémarrer :  
-```bash
-./vendor/bin/sail down
-./vendor/bin/sail up -d
-```
+### 🧩 Architecture générale
+- **Modèle MVC** (Model – View – Controller)
+- **Backend** : Laravel 12
+- **Base de données** : MySQL
+- **Conteneurisation** : Docker (via Laravel Sail)
+  - Conteneurs distincts :
+    - PHP 8.2+
+    - MySQL 8.0
+    - Nginx / Apache
 
-- **Réinitialisation complète**  
-```bash
-./vendor/bin/sail down --volumes
-./vendor/bin/sail up -d
-./vendor/bin/sail artisan migrate:fresh --seed
-```
----
+### 🎨 Front-End
+- Moteur de templates : **Blade**
+  - Layouts et composants réutilisables
+- Intégration :
+  - **HTML5 / SCSS**
+  - **TailwindCSS**
+  - **JavaScript ES6+** pour les interactions dynamiques
 
-## **Fonctionnalités principales**
-
-### **Suivi de la consommation**
-- Affichage en temps réel de la consommation électrique (kWh)
-- Visualisation de la consommation par trajet ou par période (jour/semaine/mois)
-- Historique des consommations
-- Comparaison entre différents trajets ou périodes
-- Exportation des données (PDF, CSV)
-
-### **Analyse des trajets**
-- Liste des trajets effectués avec date, distance et consommation
-- Statistiques par type de trajet (urbain, autoroute, mixte)
-- Évaluation de l'efficacité énergétique (kWh/100 km)
-
-### **Coûts**
-- Estimation du coût énergétique de chaque trajet
-
-### **Autonomie et état de la batterie**
-- Suivi de l’autonomie restante
-- Courbe d’évolution de la batterie
-- Alertes en cas de batterie faible ou consommation anormale
-
-### **Indicateurs et tableaux de bord**
-- Tableau de bord personnalisé avec widgets (consommation moyenne, pic de consommation, etc.)
-- Graphiques interactifs (lignes, barres, jauges)
+### 🖥️ Back-End
+- **Framework Laravel 12**
+  - Respect strict du pattern MVC
+  - Routes RESTful, contrôleurs dédiés, Eloquent ORM
 
 ---
 
-## **Commandes utiles**
-```bash
-# Voir les logs
-./vendor/bin/sail logs
-
-# Accéder au container
-./vendor/bin/sail bash
-
-# Artisan
-./vendor/bin/sail artisan migrate
-./vendor/bin/sail artisan tinker
-
-# Arrêter l'environnement
-./vendor/bin/sail down
-```
+## 🔐 Sécurité et confidentialité
+- Données sensibles (actions, destinations, trajets) **chiffrées en base**.
+- Sauvegardes via **mysqldump** ou **mysqlpump** pour garantir la résilience des données.  
+- Conteneurisation Docker assurant un environnement stable, isolé et reproductible.  
+- Respect des bonnes pratiques Laravel en matière de validation, authentification et gestion des erreurs.
 
 ---
 
-## **Base de données**
-- **Mysql** avec Docker
-- **Migrations versionnées** et **seeders** intégrés
-
-Accès direct :  
-```bash
-./vendor/bin/sail mysql
-```
+## 🛠️ Outils et collaboration
+- **GitHub** : gestion de version (branches `main`, `develop`, `feature/*`)  
+- **Figma** : maquettes et prototypes UI/UX  
+- **Docker** : uniformisation des environnements de développement et de déploiement
 
 ---
 
-## **Stack technique**
-- **Laravel 12.x** – Framework PHP
-- **Mysql** – Base de données
-- **Docker Sail** – Environnement de développement
-- **Tailwind CSS** – Styles minimalistes
-- **Blade Components** – Interface modulaire
-
----
-
-## **Arborescence**
-```
-apwap/
-├── app/Models/           # Modèles
-├── app/Http/Controllers/ # Contrôleurs
-├── resources/views/      # Vues Blade
-├── database/migrations/  # Migrations
-├── database/seeders/     # Données de test
-└── routes/web.php        # Routes
-```
+## 🚀 Déploiement
+- **Commande de déploiement** :  
+  ```bash
+  php artisan migrate --seed
+  ```
+- Maintenance et restauration via :
+  ```bash
+  mysqldump -u utilisateur -p ma_base > backup.sql
+  mysql -u utilisateur -p ma_base < backup.sql
+  ```
 
 ---
