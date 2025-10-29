@@ -1,61 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestionnaire_consommation
+Application pour surveiller la consommation de son véhicule électrique
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## **Installation Rapide**
 
-## About Laravel
+### **Prérequis**
+- **Docker Desktop** installé et en cours d’exécution
+- **Git** installé
+- **Composer** et **NPM** installés globalement
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### **Étapes d’installation**
+```bash
+# 1. Cloner le projet
+git clone https://github.com/tac1DEV/gestionnaire_consommation.git
+cd gestionnaire_consommation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# 2. Copier le fichier d'environnement
+cp .env.example .env
 
-## Learning Laravel
+# 3. Installer les dépendances
+composer install
+npm install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# 4. Démarrer l'environnement Docker
+./vendor/bin/sail up -d
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# 5. Configurer l'application
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate:fresh --seed
+./vendor/bin/sail npm run dev
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Accès local :**
+- Application : [http://localhost](http://localhost)
+- Base de données : PostgreSQL sur `localhost:5432`
+- Données de test : incluses automatiquement
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## **Dépannage**
 
-### Premium Partners
+### **Erreurs fréquentes :**
+- **Permission denied (Linux/macOS)**  
+```bash
+chmod +x vendor/bin/sail
+./vendor/bin/sail up -d
+```
+- **Port 80 occupé**  
+Modifier dans `.env` :  
+```env
+APP_PORT=8080
+```
+Puis redémarrer :  
+```bash
+./vendor/bin/sail down
+./vendor/bin/sail up -d
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Réinitialisation complète**  
+```bash
+./vendor/bin/sail down --volumes
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate:fresh --seed
+```
+---
 
-## Contributing
+## **Fonctionnalités principales**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **Suivi de la consommation**
+- Affichage en temps réel de la consommation électrique (kWh)
+- Visualisation de la consommation par trajet ou par période (jour/semaine/mois)
+- Historique des consommations
+- Comparaison entre différents trajets ou périodes
+- Exportation des données (PDF, CSV)
 
-## Code of Conduct
+### **Analyse des trajets**
+- Liste des trajets effectués avec date, distance et consommation
+- Statistiques par type de trajet (urbain, autoroute, mixte)
+- Évaluation de l'efficacité énergétique (kWh/100 km)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### **Coûts**
+- Estimation du coût énergétique de chaque trajet
 
-## Security Vulnerabilities
+### **Autonomie et état de la batterie**
+- Suivi de l’autonomie restante
+- Courbe d’évolution de la batterie
+- Alertes en cas de batterie faible ou consommation anormale
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### **Indicateurs et tableaux de bord**
+- Tableau de bord personnalisé avec widgets (consommation moyenne, pic de consommation, etc.)
+- Graphiques interactifs (lignes, barres, jauges)
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## **Commandes utiles**
+```bash
+# Voir les logs
+./vendor/bin/sail logs
+
+# Accéder au container
+./vendor/bin/sail bash
+
+# Artisan
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan tinker
+
+# Arrêter l'environnement
+./vendor/bin/sail down
+```
+
+---
+
+## **Base de données**
+- **Mysql** avec Docker
+- **Migrations versionnées** et **seeders** intégrés
+
+Accès direct :  
+```bash
+./vendor/bin/sail mysql
+```
+
+---
+
+## **Stack technique**
+- **Laravel 12.x** – Framework PHP
+- **Mysql** – Base de données
+- **Docker Sail** – Environnement de développement
+- **Tailwind CSS** – Styles minimalistes
+- **Blade Components** – Interface modulaire
+
+---
+
+## **Arborescence**
+```
+apwap/
+├── app/Models/           # Modèles
+├── app/Http/Controllers/ # Contrôleurs
+├── resources/views/      # Vues Blade
+├── database/migrations/  # Migrations
+├── database/seeders/     # Données de test
+└── routes/web.php        # Routes
+```
+
+---
