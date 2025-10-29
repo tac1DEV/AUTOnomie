@@ -28,50 +28,42 @@
                 <!-- Infos principales -->
                 <div class="text-lg flex flex-col gap-2">
                     <h3 class="font-bold text-xl mb-2">Infos principales</h3>
-                    <p>📅 {{ \Carbon\Carbon::parse($trajet->date)->format('d/m/Y') }}</p>
-                    <p>⚡ {{ $trajet->action }}</p>
-                    <p>📍 {{ $trajet->destination }}</p>
-                    <p>Reset: {{ $trajet->reset ? 'oui' : 'non' }}</p>
-                    <p>Type de trajet: {{ $trajet->type }}</p>
+                    <p><strong>Date: </strong>{{ \Carbon\Carbon::parse($trajet->date)->format('d/m/Y') }}</p>
+                    <p><strong>Action: </strong>{{ $trajet->action }}</p>
+                    <p><strong>Destination: </strong>{{ $trajet->destination }}</p>
+                    <p><strong>Reset: </strong>{{ $trajet->reset ? 'oui' : 'non' }}</p>
+                    <p><strong>Type de trajet: </strong>{{ $trajet->type }}</p>
                 </div>
 
                 <!-- Données techniques -->
                 <div class="text-lg flex flex-col gap-2">
                     <h3 class="font-bold text-2xl mb-2">Données techniques</h3>
-                    <p>📏 Km: {{ $trajet->km }}</p>
-                    <p>🔋 Batterie: {{ $trajet->pourcentage_batterie }}%</p>
-                    <p>🔋 Autonomie: {{ $trajet->autonomie }} km</p>
-                    <p>📐 Distance: {{ $trajet->distance }} km</p>
-                    <p>🏎️ Vitesse moy.: {{ $trajet->vitesse_moyenne }} km/h</p>
-                    <p>⚡ Conso moy.: {{ $trajet->consommation_moyenne }} kWh/100km</p>
-                    <p>📊 Conso tot.: {{ $trajet->consommation_totale }} kWh</p>
-                    <p>♻️ Énergie récup.: {{ $trajet->energie_recuperee }} kWh</p>
-                    <p>❄️ Conso clim.: {{ $trajet->consommation_clim }} kWh</p>
+                    <p><strong>Km: </strong>{{ $trajet->km }}</p>
+                    <p><strong>Batterie: </strong>{{ $trajet->pourcentage_batterie }}%</p>
+                    <p><strong>Autonomie: </strong>{{ $trajet->autonomie }} km</p>
+                    <p><strong>Distance: </strong>{{ $trajet->distance }} km</p>
+                    <p><strong>Vitesse moy.: </strong>{{ $trajet->vitesse_moyenne }} km/h</p>
+                    <p><strong>Conso moy.: </strong>{{ $trajet->consommation_moyenne }} kWh/100km</p>
+                    <p><strong>Conso tot.: </strong>{{ $trajet->consommation_totale }} kWh</p>
+                    <p><strong>Énergie récup.: </strong>{{ $trajet->energie_recuperee }} kWh</p>
+                    <p><strong>Conso clim.: </strong>{{ $trajet->consommation_clim }} kWh</p>
                 </div>
 
                 <!-- Calculs -->
                 <div class="text-lg flex flex-col gap-2">
                     <h3 class="font-bold text-2xl mb-2">Calculs</h3>
-                    <p>Distance: {{ $trajet->distance() ?? 'N/A' }} km</p>
-                    <p>%Batterie: {{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
-                    <p>nb kw: {{ $trajet->nbKw() ?? 'N/A' }} kw</p>
-                    <p>kwh/100km: {{ $trajet->kwh100km() ?? 'N/A' }}</p>
+                    <p><strong>Distance: </strong>{{ $trajet->distance() ?? 'N/A' }} km</p>
+                    <p><strong>%Batterie: </strong>{{ $trajet->pourcentageBatterie() ?? 'N/A' }} %</p>
+                    <p><strong>nb kw: </strong>{{ $trajet->nbKw() ?? 'N/A' }} kw</p>
+                    <p><strong>kwh/100km: </strong>{{ $trajet->kwh100km() ?? 'N/A' }}</p>
                     @if($trajet->vitesseMoyenne() == '#DIV/0!')
-                        <p>Vitesse moy.: DIV/0!</p>
+                        <p><strong>Vitesse moy.: </strong>DIV/0!</p>
                     @else
-                        <p>Vitesse moy.: {{ $trajet->vitesseMoyenne() }} km/h</p>
+                        <p><strong>Vitesse moy.: </strong>{{ $trajet->vitesseMoyenne() }} km/h</p>
                     @endif
-                    <p>Durée: {{$trajet->durée()}}</p>
-                    <p>Conso tot. depuis raz: {{$trajet->reset ? 0 : $trajet->consoTotDistance()}} kw</p>
+                    <p><strong>Durée: </strong>{{$trajet->durée()}}</p>
+                    <p><strong>Conso tot. depuis raz: </strong>{{$trajet->reset ? 0 : $trajet->consoTotDistance()}} kw</p>
                 </div>
-
-                <!-- Commentaire -->
-                @if(!empty(trim($trajet->commentaire ?? '')))
-                    <div class="text-lg flex flex-col gap-2">
-                        <h3 class="font-bold text-2xl mb-2">Commentaire</h3>
-                        <p>{{ $trajet->commentaire }}</p>
-                    </div>
-                @endif
             </div>
         @endforeach
     </div>
