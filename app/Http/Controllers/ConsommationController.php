@@ -12,13 +12,20 @@ class ConsommationController extends Controller
         DB::statement("SET lc_time_names = 'fr_FR'");
         $data = DB::table('trajets')
             ->select(
-                DB::raw("CONCAT( LEFT(MONTHNAME(date), 4), '-', WEEK(date, 1) - WEEK(DATE_SUB(date, INTERVAL DAY(date)-1 DAY), 1) + 1 ) as periode"),
-                DB::raw('ROUND(SUM(consommation_moyenne)/COUNT(*), 2) as consommation_moyenne')
+                DB::raw('YEARWEEK(date, 1) AS periode'),
+                DB::raw("CONCAT( MONTHNAME(date), ' ', YEAR(date)) as labels"),
+                DB::raw('ROUND(AVG(consommation_moyenne), 2) AS consommation_moyenne')
             )
-            ->groupBy('periode')
-            ->orderByRaw('MIN(date)')
+            ->groupBy('periode', 'labels')
+            ->orderBy('periode')
             ->get();
-        return view('consommation.index', compact('data'));
+        $trajetsParType = DB::table('trajets')
+            ->select('type', DB::raw('COUNT(*) AS nombre_trajets'))
+            ->groupBy('type')
+            ->orderByDesc('nombre_trajets')
+            ->get();
+
+        return view('consommation.index', compact('data', 'trajetsParType'));
     }
     public function vue(string $mode)
     {
@@ -34,6 +41,13 @@ class ConsommationController extends Controller
                     ->groupBy('periode', 'labels')
                     ->orderBy('periode')
                     ->get();
+
+                $trajetsParType = DB::table('trajets')
+                    ->select('type', DB::raw('COUNT(*) AS nombre_trajets'))
+                    ->groupBy('type')
+                    ->orderByDesc('nombre_trajets')
+                    ->get();
+
                 break;
 
             case 'mois':
@@ -48,6 +62,13 @@ class ConsommationController extends Controller
                     ->orderBy('annee')
                     ->orderBy('periode')
                     ->get();
+
+                $trajetsParType = DB::table('trajets')
+                    ->select('type', DB::raw('COUNT(*) AS nombre_trajets'))
+                    ->groupBy('type')
+                    ->orderByDesc('nombre_trajets')
+                    ->get();
+
                 break;
 
             case 'annee':
@@ -59,12 +80,19 @@ class ConsommationController extends Controller
                     ->groupBy('labels')
                     ->orderBy('labels')
                     ->get();
+
+                $trajetsParType = DB::table('trajets')
+                    ->select('type', DB::raw('COUNT(*) AS nombre_trajets'))
+                    ->groupBy('type')
+                    ->orderByDesc('nombre_trajets')
+                    ->get();
+
                 break;
             default:
                 abort(404);
         }
 
-        return view('consommation.index', compact('mode', 'data'));
+        return view('consommation.index', compact('mode', 'data', 'trajetsParType'));
 
     }
 }
