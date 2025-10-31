@@ -10,6 +10,7 @@
         <ul class="flex gap-6">
             <li><a href="{{ url('/') }}">Trajets</a></li>
             <li><a href="{{ url('/recharges') }}">Recharges</a></li>
+            <li><a href="{{ url('/consommation') }}">Consommation</a></li>
         </ul>
     </nav>
 

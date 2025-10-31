@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TrajetController;
 use App\Http\Controllers\RechargeController;
+use App\Http\Controllers\ConsommationController;
 
 
 Route::get('/', [TrajetController::class, 'index'])->name('trajets.index');
@@ -19,3 +20,8 @@ Route::post('/recharges/create', [RechargeController::class, 'store'])->name('re
 Route::get('/recharges/{id}/edit', [RechargeController::class, 'edit'])->name('recharges.edit');
 Route::put('/recharges/{id}', [RechargeController::class, 'update'])->name('recharges.update');
 Route::delete('/recharges/{id}', [RechargeController::class, 'destroy'])->name('recharges.destroy');
+
+Route::get('/consommation', [ConsommationController::class, 'index'])->name('consommation.index');
+Route::get('/consommation/{vue}', [ConsommationController::class, 'vue'])
+    ->whereIn('vue', ['jour', 'semaine', 'mois', 'annee'])
+    ->name('consommation.vue');
