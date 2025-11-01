@@ -40,7 +40,7 @@ class TrajetController extends Controller
         Trajet::create($validated);
 
 
-        return redirect()->back()->with('success', 'Trajet ajouté avec succès.');
+        return redirect()->route('trajets.index')->with('success', 'Trajet crée avec succès.');
     }
     public function edit($id)
     {

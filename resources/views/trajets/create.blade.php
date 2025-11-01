@@ -104,13 +104,6 @@
                     <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
-
-                <div class="md:col-span-2">
-                    <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-1">Commentaire</label>
-                    <input type="text" name="commentaire" id="commentaire" placeholder="Ex : trajet travail - maison"
-                        required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
-                </div>
             </div>
             <div class="flex items-center gap-8">
                 <label for="reset" class="text-sm font-medium text-gray-700 select-none">Reset kilométrage:</label>

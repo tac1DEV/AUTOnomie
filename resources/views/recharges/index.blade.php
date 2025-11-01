@@ -1,6 +1,6 @@
 <x-layout>
     <h1 class="text-2xl font-bold text-center my-8">Liste des recharges</h1>
-    <div class="flex justify-end mb-4 px-12">
+    <div class="flex justify-end">
         <a href="{{ route('recharges.create') }}"
             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xl font-medium rounded-xl shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
