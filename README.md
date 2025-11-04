@@ -119,6 +119,7 @@ composer install
 
 ```bash
 composer require laravel/sail --dev
+cp .env.example .env
 php artisan sail:install
 ```
 
@@ -131,7 +132,6 @@ php artisan sail:install
 5. **Configurer l’environnement**
 
 ```bash
-cp .env.example .env
 ./vendor/bin/sail artisan key:generate
 ```
 
