@@ -15,7 +15,8 @@ class TrajetController extends Controller
     }
     public function create()
     {
-        return view('trajets.create');
+        $types = Trajet::distinct()->pluck('type');
+        return view('trajets.create', compact('types'));
     }
     public function store(Request $request)
     {

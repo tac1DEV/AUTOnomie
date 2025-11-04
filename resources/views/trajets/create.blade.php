@@ -45,24 +45,17 @@
                 </div>
 
                 <div>
-                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type de trajet:</label>
                     <select name="type" id="type" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                         <option value="">Choisir un type</option>
-                        <option value="CH">CH</option>
-                        <option value="voy">voy</option>
-                        <option value="MA">MA</option>
-                        <option value="MR">MR</option>
-                        <option value="eco">eco</option>
-                        <option value="SA">SA</option>
-                        <option value="SR">SR</option>
-                        <option value="NA">NA</option>
-                        <option value="NR">NR</option>
-                        <option value="vis">vis</option>
-                        <option value="?">?</option>
-                        <option value="CMH">CMH</option>
+                        @foreach($types as $type)
+                            <option value="{{ $type }}">{{ $type }}</option>
+                        @endforeach
                     </select>
                 </div>
+
+
 
                 <div>
                     <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance (km)</label>

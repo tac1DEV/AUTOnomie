@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('trajets', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date')->nullable();
-            $table->string('action')->nullable();
-            $table->string('destination')->nullable();
+            $table->date('date')->nullable();
+            $table->string('action', 100)->nullable();
+            $table->string('destination', 100)->nullable();
             $table->integer('km')->nullable();
             $table->integer('pourcentage_batterie')->nullable();
             $table->float('autonomie')->nullable();
@@ -27,21 +27,23 @@ return new class extends Migration {
             $table->float('energie_recuperee')->nullable();
             $table->float('consommation_clim')->nullable();
             $table->string('commentaire', 255)->nullable();
+            $table->timestamps();
         });
 
         Schema::create('recharges', function (Blueprint $table) {
             $table->id();
-            $table->integer('duree');
-            $table->integer('kw_charge');
-            $table->integer('prix_kwh');
-            $table->integer('pu_chrg_kwh');
-            $table->integer('cout');
-            $table->integer('trajet_id');
-            $table->integer('ratio_batterie');
+            $table->date('date')->nullable();
+            $table->time('duree');
+            $table->float('kw_charge');
+            $table->float('prix_kwh')->default(0);
+            $table->float('pu_chrg_kwh');
+            $table->float('cout')->default(0);
+            $table->integer('ratio_batterie')->nullable();
+            $table->string('commentaire', 100)->nullable();
             $table->timestamps();
         });
-
     }
+
 
     /**
      * Reverse the migrations.
