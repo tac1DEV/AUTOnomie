@@ -122,6 +122,7 @@ composer require laravel/sail --dev
 cp .env.example .env
 php artisan sail:install
 ```
+> Choisir mysql
 
 4. **Lancer les containers Docker**
 
@@ -141,6 +142,13 @@ php artisan sail:install
 
 ```bash
 ./vendor/bin/sail artisan migrate --seed
+```
+
+7. **Installer les packages et lancer l'application**
+
+```bash
+npm i
+npm run dev
 ```
 
 7. **Accéder à l’application**
