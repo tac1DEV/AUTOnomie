@@ -144,6 +144,13 @@ php artisan sail:install
 ./vendor/bin/sail artisan migrate --seed
 ```
 
+7. **Installer les packages et lancer l'application**
+
+```bash
+npm i
+npm run dev
+```
+
 7. **Accéder à l’application**
    Ouvrez votre navigateur :
 
