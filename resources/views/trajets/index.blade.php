@@ -1,6 +1,14 @@
 <x-layout>
     <h1 class="text-2xl font-bold text-center my-8">Liste des trajets</h1>
-
+    <div class="my-6 flex justify-end">
+        <a href="{{ route('trajets.create') }}"
+            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xl font-medium rounded-xl shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Nouveau trajet
+        </a>
+    </div>
     <div class="overflow-x-auto px-4">
         <table class="table-fixed w-full border border-gray-300 border-collapse">
             <thead class="bg-gray-100">
