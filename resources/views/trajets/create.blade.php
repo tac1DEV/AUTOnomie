@@ -40,7 +40,7 @@
 
                 <div>
                     <label for="autonomie" class="block text-sm font-medium text-gray-700 mb-1">Autonomie (km)</label>
-                    <input type="number" name="autonomie" id="autonomie" placeholder="350" required
+                    <input type="number" step="0.001" name="autonomie" id="autonomie" placeholder="350.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
@@ -59,42 +59,47 @@
 
                 <div>
                     <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance (km)</label>
-                    <input type="number" name="distance" id="distance" placeholder="115" required
+                    <input type="number" step="0.001" name="distance" id="distance" placeholder="115.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
                 <div>
                     <label for="vitesse_moyenne" class="block text-sm font-medium text-gray-700 mb-1">Vitesse
                         Moy.</label>
-                    <input type="number" name="vitesse_moyenne" id="vitesse_moyenne" placeholder="90" required
+                    <input type="number" step="0.001" name="vitesse_moyenne" id="vitesse_moyenne" placeholder="90.000"
+                        required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
                 <div>
                     <label for="consommation_moyenne" class="block text-sm font-medium text-gray-700 mb-1">Conso
                         Moy.</label>
-                    <input type="number" name="consommation_moyenne" id="consommation_moyenne" placeholder="15" required
+                    <input type="number" step="0.001" name="consommation_moyenne" id="consommation_moyenne"
+                        placeholder="15.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
                 <div>
                     <label for="consommation_totale" class="block text-sm font-medium text-gray-700 mb-1">Conso
                         Totale</label>
-                    <input type="number" name="consommation_totale" id="consommation_totale" placeholder="18" required
+                    <input type="number" step="0.001" name="consommation_totale" id="consommation_totale"
+                        placeholder="18.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
                 <div>
                     <label for="energie_recuperee" class="block text-sm font-medium text-gray-700 mb-1">Énergie
                         Récupérée</label>
-                    <input type="number" name="energie_recuperee" id="energie_recuperee" placeholder="3" required
+                    <input type="number" step="0.001" name="energie_recuperee" id="energie_recuperee"
+                        placeholder="3.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
 
                 <div>
                     <label for="consommation_clim" class="block text-sm font-medium text-gray-700 mb-1">Conso
                         Clim</label>
-                    <input type="number" name="consommation_clim" id="consommation_clim" placeholder="2" required
+                    <input type="number" step="0.001" name="consommation_clim" id="consommation_clim"
+                        placeholder="2.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
                 </div>
             </div>

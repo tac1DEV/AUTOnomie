@@ -26,16 +26,15 @@ class TrajetController extends Controller
             'destination' => 'required|string|max:255',
             'km' => 'required|integer|min:0',
             'pourcentage_batterie' => 'required|integer|min:0|max:100',
-            'autonomie' => 'required|integer|min:0',
+            'autonomie' => 'required|numeric|min:0',
             'type' => 'required|string|max:3',
             'reset' => 'nullable|boolean',
-            'distance' => 'required|integer|min:0',
-            'vitesse_moyenne' => 'required|integer|min:0',
-            'consommation_moyenne' => 'required|integer|min:0',
-            'consommation_totale' => 'required|integer|min:0',
-            'energie_recuperee' => 'required|integer|min:0',
-            'consommation_clim' => 'required|integer|min:0',
-            'commentaire' => 'nullable|string|max:255',
+            'distance' => 'required|numeric|min:0',
+            'vitesse_moyenne' => 'required|numeric|min:0',
+            'consommation_moyenne' => 'required|numeric|min:0',
+            'consommation_totale' => 'required|numeric|min:0',
+            'energie_recuperee' => 'required|numeric|min:0',
+            'consommation_clim' => 'required|numeric|min:0'
         ]);
 
         Trajet::create($validated);
@@ -61,7 +60,7 @@ class TrajetController extends Controller
             'destination' => 'required|string|max:255',
             'km' => 'required|integer|min:0',
             'pourcentage_batterie' => 'required|integer|min:0|max:100',
-            'autonomie' => 'required|integer|min:0',
+            'autonomie' => 'required|numeric|min:0',
             'type' => 'required|string|max:3',
             'reset' => 'nullable|boolean',
             'distance' => 'required|numeric|min:0',
