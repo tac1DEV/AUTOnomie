@@ -17,7 +17,6 @@ class Batterie extends Model
     public function recharges()
     {
         return $this->hasMany(Recharge::class);
-        // Une batterie peut avoir plusieurs recharges
     }
 
     public function trajets()
@@ -27,4 +26,32 @@ class Batterie extends Model
 
     public $timestamps = false;
 
+    protected $table = 'batteries';
+
+    public function previous()
+    {
+        return self::where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
+            ->first();
+    }
+
+    public function difference()
+    {
+        $prev = $this->previous();
+        if ($prev) {
+            return $this->pourcentage - $prev->pourcentage;
+        }
+        return null;
+    }
+
+    public static function allWithDifferences()
+    {
+        $batteries = self::orderBy('id', 'asc')->get();
+        $previous = null;
+        foreach ($batteries as $battery) {
+            $battery->difference = $previous ? $battery->pourcentage - $previous->pourcentage : null;
+            $previous = $battery;
+        }
+        return $batteries;
+    }
 }

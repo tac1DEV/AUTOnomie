@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trajet;
+use App\Models\Batterie;
 use Illuminate\Http\Request;
 
 class TrajetController extends Controller
 {
     public function index()
     {
-        $trajets = Trajet::orderBy('id', 'desc')->paginate(50);
-
+        $trajets = Trajet::with('batterie')->orderBy('id', 'desc')->paginate(50);
         return view('trajets.index', compact('trajets'));
     }
     public function create()

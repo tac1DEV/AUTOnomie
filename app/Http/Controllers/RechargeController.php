@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\Recharge;
 use App\Models\Trajet;
+use App\Models\Batterie;
 use Illuminate\Http\Request;
 
 class RechargeController extends Controller
 {
     public function index()
     {
-        $recharges = Recharge::orderBy('id', 'desc')->paginate(9);
+        $recharges = Recharge::with('batterie')->orderBy('id', 'desc')->paginate(50);
 
         return view('recharges.index', compact('recharges'));
     }
@@ -39,18 +40,6 @@ class RechargeController extends Controller
         // Calcul cout
         $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
         // cout
-
-        // Calcul ratio_batterie
-        $dernierTrajet = Trajet::orderBy('id', 'desc')->first();
-
-        $nouveauPourcentage = $validated['pourcentage_batterie'];
-
-        $ratioBatterie = $dernierTrajet
-            ? $nouveauPourcentage - $dernierTrajet->pourcentage_batterie
-            : 0;
-
-        $validated['ratio_batterie'] = $ratioBatterie;
-        // ratio_batterie
 
         // Créer la recharge
         $recharge = Recharge::create($validated);
@@ -94,19 +83,6 @@ class RechargeController extends Controller
         // Calcul cout
         $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
         // cout
-
-        // Calcul ratio_batterie
-        $dernierTrajet = Trajet::orderBy('id', 'desc')->first();
-
-        $nouveauPourcentage = $validated['pourcentage_batterie'];
-
-        $ratioBatterie = $dernierTrajet
-            ? $nouveauPourcentage - $dernierTrajet->pourcentage_batterie
-            : 0;
-
-        $validated['ratio_batterie'] = $ratioBatterie;
-        // ratio_batterie
-
         $recharge->update($validated);
 
         return redirect()->route('recharges.index')->with('success', 'Recharge mise à jour avec succès.');

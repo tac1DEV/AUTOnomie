@@ -1,6 +1,7 @@
 <x-layout>
     <h1 class="text-2xl font-bold text-center my-8">Liste des recharges</h1>
-    <div class="flex justify-end">
+
+    <div class="my-6 flex justify-end px-4">
         <a href="{{ route('recharges.create') }}"
             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xl font-medium rounded-xl shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -9,24 +10,6 @@
             Nouvelle recharge
         </a>
     </div>
-    @if($recharges->isEmpty())
-        <p class="text-center text-gray-500">Aucune recharge trouvée.</p>
-    @else
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 mt-8">
-            @foreach($recharges as $recharge)
-                <div class="bg-white shadow-xl rounded-xl p-6 flex flex-col justify-between gap-6 border border-gray-200">
-                    <!-- Actions -->
-                    <div class="self-end flex gap-6">
-                        <a href="{{ route('recharges.edit', $recharge->id) }}" class="text-xl text-yellow-600 hover:underline">
-                            Modifier
-                        </a>
-                        <form action="{{ route('recharges.destroy', $recharge->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette recharge ?')"
-                                class="text-xl text-red-600 hover:underline">Supprimer</button>
-                        </form>
-                    </div>
 
     <div class="overflow-x-auto px-4">
         <table class="w-full border border-gray-300 border-collapse">
@@ -44,9 +27,69 @@
                 </tr>
             </thead>
 
-        <!-- Pagination -->
-        <div class="m-auto w-2/5 my-12">
-            {{ $recharges->links() }}
-        </div>
-    @endif
+            <tbody>
+                @forelse($recharges as $recharge)
+                    <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ \Carbon\Carbon::parse($recharge->date)->format('d/m/Y') }}
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ \Carbon\Carbon::parse($recharge->duree)->format('H:i') }}
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $recharge->kw_charge }}
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $recharge->prix_kwh }} €
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $recharge->pu_chrg_kwh }} €
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $recharge->cout }} €
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            <strong>+{{ $recharge->batterie->difference() }} %</strong>
+                            ({{$recharge->batterie->pourcentage}} %)
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $recharge->commentaire ?: '—' }}
+                        </td>
+
+                        <td class="border border-gray-300 px-2 py-1">
+                            <div class="flex justify-center gap-4">
+                                <a href="{{ route('recharges.edit', $recharge->id) }}"
+                                    class="text-yellow-600 hover:underline">Modifier</a>
+
+                                <form action="{{ route('recharges.destroy', $recharge->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        onclick="return confirm('Voulez-vous vraiment supprimer cette recharge ?')"
+                                        class="text-red-600 hover:underline">Supprimer</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-500">
+                            Aucune recharge trouvée.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="m-auto w-2/5 my-12">
+        {{ $recharges->links() }}
+    </div>
 </x-layout>

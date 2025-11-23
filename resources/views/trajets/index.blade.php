@@ -41,6 +41,9 @@
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->destination }}</td>
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->km }}</td>
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->batterie->pourcentage }}%</td>
+                        <td class="border border-gray-300 px-2 py-1 text-center">
+                            {{ $trajet->batterie->difference() ?? 'N/A' }}%
+                        </td>
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->autonomie }} km</td>
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->type }}</td>
                         <td class="border border-gray-300 px-2 py-1 text-center">{{ $trajet->reset ? 'Oui' : 'Non' }}</td>
