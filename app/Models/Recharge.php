@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Batterie;
 
 class Recharge extends Model
 {
@@ -16,10 +17,14 @@ class Recharge extends Model
         'prix_kwh',
         'pu_chrg_kwh',
         'cout',
-        'pourcentage_batterie',
         'ratio_batterie',
         'commentaire'
     ];
+
+    public function batterie()
+    {
+        return $this->belongsTo(Batterie::class, 'batterie_id');
+    }
 
     public $timestamps = false;
 }

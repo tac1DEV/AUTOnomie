@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\CarbonInterval;
+use App\Models\Batterie;
 
 class Trajet extends Model
 {
@@ -15,7 +16,6 @@ class Trajet extends Model
         'action',
         'destination',
         'km',
-        'pourcentage_batterie',
         'autonomie',
         'type',
         'reset',
@@ -26,7 +26,10 @@ class Trajet extends Model
         'energie_recuperee',
         'consommation_clim'
     ];
-
+    public function batterie()
+    {
+        return $this->belongsTo(Batterie::class, 'batterie_id');
+    }
     public $timestamps = false;
 
     public function distance()
@@ -39,16 +42,6 @@ class Trajet extends Model
         return $distance;
     }
 
-
-    public function pourcentageBatterie()
-    {
-        $trajetPrecedent = self::where('id', '<', $this->id)
-            ->orderBy('id', 'desc')
-            ->first();
-
-        return $trajetPrecedent ? $this->pourcentage_batterie - $trajetPrecedent->pourcentage_batterie : null;
-
-    }
     public function nbkw()
     {
         $trajetPrecedent = self::where('id', '<', $this->id)
