@@ -28,23 +28,21 @@
                         </form>
                     </div>
 
-                    <!-- Infos principales -->
-                    <div class="text-lg flex flex-col gap-2">
-                        <h3 class="font-bold text-xl mb-2">Infos principales</h3>
-                        <p>Date: <strong>{{ \Carbon\Carbon::parse($recharge->date)->format('d/m/Y') }}</strong></p>
-                        <p>Durée: <strong>{{ \Carbon\Carbon::parse($recharge->duree)->format('H:i') }} h</strong></p>
-                        <p>KW Charge: <strong>{{ $recharge->kw_charge }}</strong></p>
-                        <p>Prix KWh: <strong>{{ $recharge->prix_kwh }} €</strong></p>
-                        <p>Pu Chrg kw/H: <strong>{{ $recharge->pu_chrg_kwh }} €</strong></p>
-                        <p>Coût: <strong>{{ $recharge->cout }} €</strong></p>
-                        <p>Ratio batterie: <strong>{{ $recharge->ratio_batterie ?? 'N/A' }} %</strong></p>
-                        @if($recharge->commentaire)
-                            <p>Commentaire: <strong>{{ $recharge->commentaire }}</strong></p>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
+    <div class="overflow-x-auto px-4">
+        <table class="w-full border border-gray-300 border-collapse">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border border-gray-300 px-2 py-1">Date</th>
+                    <th class="border border-gray-300 px-2 py-1">Durée</th>
+                    <th class="border border-gray-300 px-2 py-1">KW charge</th>
+                    <th class="border border-gray-300 px-2 py-1">Prix KWh</th>
+                    <th class="border border-gray-300 px-2 py-1">Puissance (kW/h)</th>
+                    <th class="border border-gray-300 px-2 py-1">Coût</th>
+                    <th class="border border-gray-300 px-2 py-1">Batterie chargée (total)</th>
+                    <th class="border border-gray-300 px-2 py-1">Commentaire</th>
+                    <th class="border border-gray-300 px-2 py-1">Actions</th>
+                </tr>
+            </thead>
 
         <!-- Pagination -->
         <div class="m-auto w-2/5 my-12">
