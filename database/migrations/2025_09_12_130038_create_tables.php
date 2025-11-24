@@ -10,13 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        Schema::create('batteries', function (Blueprint $table) {
+            $table->id();
+            $table->float('pourcentage')->default(0);
+        });
         Schema::create('trajets', function (Blueprint $table) {
             $table->id();
             $table->date('date')->nullable();
             $table->string('action', 100)->nullable();
             $table->string('destination', 100)->nullable();
             $table->integer('km')->nullable();
-            $table->integer('pourcentage_batterie')->nullable();
+            $table->foreignId('batterie_id')->constrained('batteries');
             $table->float('autonomie')->nullable();
             $table->string('type', 3)->nullable();
             $table->boolean('reset')->default(false);
@@ -26,8 +30,6 @@ return new class extends Migration {
             $table->float('consommation_totale')->nullable();
             $table->float('energie_recuperee')->nullable();
             $table->float('consommation_clim')->nullable();
-            $table->string('commentaire', 255)->nullable();
-            $table->timestamps();
         });
 
         Schema::create('recharges', function (Blueprint $table) {
@@ -38,9 +40,8 @@ return new class extends Migration {
             $table->float('prix_kwh')->default(0);
             $table->float('pu_chrg_kwh');
             $table->float('cout')->default(0);
-            $table->integer('ratio_batterie')->nullable();
+            $table->foreignId('batterie_id')->constrained('batteries');
             $table->string('commentaire', 100)->nullable();
-            $table->timestamps();
         });
     }
 
@@ -52,5 +53,6 @@ return new class extends Migration {
     {
         Schema::dropIfExists('recharges');
         Schema::dropIfExists('trajets');
+        Schema::dropIfExists('batterie');
     }
 };
