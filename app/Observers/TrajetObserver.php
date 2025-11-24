@@ -7,27 +7,8 @@ use App\Models\Recharge;
 
 class TrajetObserver
 {
-    public function saved(Trajet $trajet)
-    {
-        $this->recalculerRatioBatterie();
-    }
 
-    protected function recalculerRatioBatterie()
-    {
-        $trajets = Trajet::orderBy('id')->get(['id', 'pourcentage_batterie']);
-        $prev = null;
 
-        foreach ($trajets as $t) {
-            if ($prev === null) {
-                Recharge::where('id', $t->id)->update(['ratio_batterie' => null]);
-            } else {
-                Recharge::where('id', $t->id)->update([
-                    'ratio_batterie' => $t->pourcentage_batterie - $prev
-                ]);
-            }
-            $prev = $t->pourcentage_batterie;
-        }
-    }
     /**
      * Handle the Trajet "created" event.
      */

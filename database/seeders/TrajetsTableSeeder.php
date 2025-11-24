@@ -25,7 +25,6 @@ class TrajetsTableSeeder extends Seeder
                 'destination' => ['Paris', 'Lyon', 'Marseille', 'Nice', 'Toulouse'][array_rand(['Paris', 'Lyon', 'Marseille', 'Nice', 'Toulouse'])],
                 'distance' => $distance,
                 'km' => $cumulKm, // km cumulatif
-                'pourcentage_batterie' => rand(10, 100),
                 'autonomie' => rand(100, 500),
                 'type' => $type,
                 'reset' => rand(0, 1),

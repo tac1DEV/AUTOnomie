@@ -38,14 +38,6 @@
                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
-            <!-- Pourcentage batterie -->
-            <div>
-                <label for="pourcentage_batterie" class="block text-sm font-medium text-gray-700 mb-1">Pourcentage
-                    batterie (après charge): (%)</label>
-                <input type="number" step="1" min="0" max="100" name="pourcentage_batterie" id="pourcentage_batterie"
-                    value="{{ old('pourcentage_batterie', $recharge->pourcentage_batterie) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
-                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
-            </div>
             <!-- Commentaire -->
             <div>
                 <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-1">Commentaire: (max 100

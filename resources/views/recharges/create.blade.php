@@ -27,13 +27,6 @@
                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
             <div>
-                <label for="pourcentage_batterie" class="block text-sm font-medium text-gray-700 mb-1">Pourcentage
-                    batterie (%):</label>
-                <input type="number" step="1" min="0" max="100" name="pourcentage_batterie" id="pourcentage_batterie"
-                    value="{{ old('pourcentage_batterie') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl
-                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
-            </div>
-            <div>
                 <label for="commentaire" class="block text-sm font-medium text-gray-700 mb-1">Commentaire: (max 100
                     carac.)</label>
                 <textarea name="commentaire" id="commentaire" rows="3" maxlength="100"

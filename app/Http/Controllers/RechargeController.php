@@ -26,7 +26,6 @@ class RechargeController extends Controller
             'duree' => ['required', 'date_format:H:i'],
             'kw_charge' => ['required', 'numeric', 'min:0'],
             'prix_kwh' => ['required', 'numeric', 'min:0'],
-            'pourcentage_batterie' => ['required', 'numeric', 'min:0'],
             'commentaire' => ['nullable', 'string', 'max:100'],
         ]);
 
@@ -69,7 +68,6 @@ class RechargeController extends Controller
             'duree' => ['required', 'date_format:H:i'],
             'kw_charge' => ['required', 'numeric', 'min:0'],
             'prix_kwh' => ['required', 'numeric', 'min:0'],
-            'pourcentage_batterie' => ['required', 'numeric', 'min:0'],
             'commentaire' => ['nullable', 'string', 'max:100'],
         ]);
 

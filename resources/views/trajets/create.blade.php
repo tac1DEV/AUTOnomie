@@ -31,14 +31,6 @@
                 </div>
 
                 <div>
-                    <label for="pourcentage_batterie" class="block text-sm font-medium text-gray-700 mb-1">%
-                        Batterie</label>
-                    <input type="number" name="pourcentage_batterie" id="pourcentage_batterie" placeholder="85" min="0"
-                        max="100" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">
-                </div>
-
-                <div>
                     <label for="autonomie" class="block text-sm font-medium text-gray-700 mb-1">Autonomie (km)</label>
                     <input type="number" step="0.001" name="autonomie" id="autonomie" placeholder="350.000" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition">

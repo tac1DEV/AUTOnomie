@@ -65,14 +65,6 @@
             </div>
 
             <div>
-                <label for="pourcentage_batterie" class="block text-sm font-medium text-gray-700 mb-1">
-                    Batterie: (%)</label>
-                <input type="number" name="pourcentage_batterie" id="pourcentage_batterie"
-                    value="{{ old('pourcentage_batterie', $trajet->pourcentage_batterie) }}" min="0" max="100" required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
-            </div>
-
-            <div>
                 <label for="consommation_moyenne" class="block text-sm font-medium text-gray-700 mb-1">Consommation
                     moyenne:</label>
                 <input type="number" name="consommation_moyenne" id="consommation_moyenne"
@@ -117,7 +109,7 @@
                 <input type="checkbox" name="reset" id="reset" value="1" {{ $trajet->reset ? 'checked' : '' }}
                     class="h-6 w-6 rounded text-blue-600">
             </div>
-            
+
             <div class="flex justify-center gap-8 pt-4 mb-8">
                 <button type="submit" class="inline-flex items-center px-6 py-2 bg-blue-600 text-white text-lg font-medium rounded-xl
                            border border-gray-300 shadow-sm hover:bg-blue-700 transition">
