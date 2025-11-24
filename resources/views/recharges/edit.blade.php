@@ -25,7 +25,7 @@
             <!-- KW Charge -->
             <div>
                 <label for="kw_charge" class="block text-sm font-medium text-gray-700 mb-1">KW Charge:</label>
-                <input type="number" step="0.01" name="kw_charge" id="kw_charge"
+                <input type="number" step="0.001" name="kw_charge" id="kw_charge"
                     value="{{ old('kw_charge', $recharge->kw_charge) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
@@ -33,7 +33,7 @@
             <!-- Prix KWh -->
             <div>
                 <label for="prix_kwh" class="block text-sm font-medium text-gray-700 mb-1">Prix KWh: (€)</label>
-                <input type="number" step="0.0001" min="0" name="prix_kwh" id="prix_kwh"
+                <input type="number" step="0.001" min="0" name="prix_kwh" id="prix_kwh"
                     value="{{ old('prix_kwh', $recharge->prix_kwh) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl 
                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>

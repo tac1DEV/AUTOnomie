@@ -27,7 +27,8 @@
 
             <div>
                 <label for="km" class="block text-sm font-medium text-gray-700 mb-1">Kilomètres:</label>
-                <input type="number" name="km" id="km" value="{{ old('km', $trajet->km) }}" required
+                <input type="number" step="0.001" name="km" id="km" placeholder="120000.001"
+                    value="{{ old('km', $trajet->km) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
@@ -50,22 +51,22 @@
 
             <div>
                 <label for="autonomie" class="block text-sm font-medium text-gray-700 mb-1">Autonomie: (km)</label>
-                <input type="number" name="autonomie" id="autonomie" value="{{ old('autonomie', $trajet->autonomie) }}"
-                    required
+                <input type="number" step="0.001" name="autonomie" id="autonomie" placeholder="350.000"
+                    value="{{ old('autonomie', $trajet->autonomie) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
             <div>
                 <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance: (km)</label>
-                <input type="number" name="distance" id="distance" value="{{ old('distance', $trajet->distance) }}"
-                    required
+                <input type="number" step="0.001" name="distance" id="distance" placeholder="115.000"
+                    value="{{ old('distance', $trajet->distance) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
             <div>
                 <label for="vitesse_moyenne" class="block text-sm font-medium text-gray-700 mb-1">Vitesse
                     moyenne:</label>
-                <input type="number" name="vitesse_moyenne" id="vitesse_moyenne"
+                <input type="number" step="0.001" name="vitesse_moyenne" id="vitesse_moyenne" placeholder="90.000"
                     value="{{ old('vitesse_moyenne', $trajet->vitesse_moyenne) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
@@ -73,23 +74,24 @@
             <div>
                 <label for="consommation_moyenne" class="block text-sm font-medium text-gray-700 mb-1">Consommation
                     moyenne:</label>
-                <input type="number" name="consommation_moyenne" id="consommation_moyenne"
-                    value="{{ old('consommation_moyenne', $trajet->consommation_moyenne) }}" required
+                <input type="number" step="0.001" name="consommation_moyenne" id="consommation_moyenne"
+                    placeholder="15.000" value="{{ old('consommation_moyenne', $trajet->consommation_moyenne) }}"
+                    required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
             <div>
                 <label for="consommation_totale" class="block text-sm font-medium text-gray-700 mb-1">Consommation
                     totale:</label>
-                <input type="number" name="consommation_totale" id="consommation_totale"
-                    value="{{ old('consommation_totale', $trajet->consommation_totale) }}" required
+                <input type="number" step="0.001" name="consommation_totale" id="consommation_totale"
+                    placeholder="18.000" value="{{ old('consommation_totale', $trajet->consommation_totale) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
 
             <div>
                 <label for="energie_recuperee" class="block text-sm font-medium text-gray-700 mb-1">Énergie
                     récupérée:</label>
-                <input type="number" name="energie_recuperee" id="energie_recuperee"
+                <input type="number" step="0.001" name="energie_recuperee" id="energie_recuperee" placeholder="3.000"
                     value="{{ old('energie_recuperee', $trajet->energie_recuperee) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
@@ -97,7 +99,7 @@
             <div>
                 <label for="consommation_clim" class="block text-sm font-medium text-gray-700 mb-1">Consommation
                     Climatisation:</label>
-                <input type="number" name="consommation_clim" id="consommation_clim"
+                <input type="number" step="0.001" name="consommation_clim" id="consommation_clim" placeholder="2.000"
                     value="{{ old('consommation_clim', $trajet->consommation_clim) }}" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm">
             </div>
