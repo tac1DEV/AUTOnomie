@@ -16,6 +16,7 @@ class Trajet extends Model
         'action',
         'destination',
         'km',
+        'batterie_id',
         'autonomie',
         'type',
         'reset',

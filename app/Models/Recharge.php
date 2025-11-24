@@ -18,7 +18,8 @@ class Recharge extends Model
         'pu_chrg_kwh',
         'cout',
         'ratio_batterie',
-        'commentaire'
+        'commentaire',
+        'batterie_id'
     ];
 
     public function batterie()

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Recharge;
-use App\Models\Trajet;
 use App\Models\Batterie;
 use Illuminate\Http\Request;
 
@@ -40,6 +39,12 @@ class RechargeController extends Controller
         $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
         // cout
 
+        // Créer la batterie associée
+        $pourcentage = $request->validate(['pourcentage' => 'required|integer|min:0|max:100']);
+
+        $batterie = Batterie::create($pourcentage);
+
+        $validated['batterie_id'] = $batterie->id;
         // Créer la recharge
         $recharge = Recharge::create($validated);
 
@@ -62,6 +67,7 @@ class RechargeController extends Controller
     public function update(Request $request, $id)
     {
         $recharge = Recharge::findOrFail($id);
+        $batterie = $recharge->batterie;
 
         $validated = $request->validate([
             'date' => ['required', 'date'],
@@ -81,6 +87,11 @@ class RechargeController extends Controller
         // Calcul cout
         $validated['cout'] = round($validated['kw_charge'] * $validated['prix_kwh'], 2);
         // cout
+
+
+        $batterie->update($request->validate([
+            'pourcentage' => 'required|integer|min:0|max:100',
+        ]));
         $recharge->update($validated);
 
         return redirect()->route('recharges.index')->with('success', 'Recharge mise à jour avec succès.');

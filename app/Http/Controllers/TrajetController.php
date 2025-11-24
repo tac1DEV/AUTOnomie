@@ -20,11 +20,18 @@ class TrajetController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validatedFirst = $request->validate([
             'date' => 'required|date',
             'action' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'km' => 'required|integer|min:0',
+            'km' => 'required|integer|min:0'
+        ]);
+        $pourcentage = $request->validate(['pourcentage' => 'required|integer|min:0|max:100']);
+        // dd($pourcentage);
+        $batterie = Batterie::create($pourcentage);
+        $validatedFirst['batterie_id'] = $batterie->id;
+        // dd($validatedFirst);
+        $validatedSecond = $request->validate([
             'autonomie' => 'required|numeric|min:0',
             'type' => 'required|string|max:3',
             'reset' => 'nullable|boolean',
@@ -35,8 +42,10 @@ class TrajetController extends Controller
             'energie_recuperee' => 'required|numeric|min:0',
             'consommation_clim' => 'required|numeric|min:0'
         ]);
-
+        $validated = array_merge($validatedFirst, $validatedSecond);
+        // dd($validated);
         Trajet::create($validated);
+
 
 
         return redirect()->route('trajets.index')->with('success', 'Trajet crée avec succès.');
@@ -51,7 +60,7 @@ class TrajetController extends Controller
     public function update(Request $request, $id)
     {
         $trajet = Trajet::findOrFail($id);
-
+        $batterie = $trajet->batterie;
 
         $validated = $request->validate([
             'date' => 'required|date',
@@ -70,6 +79,9 @@ class TrajetController extends Controller
             'commentaire' => 'nullable|string|max:255',
         ]);
 
+        $batterie->update($request->validate([
+            'pourcentage' => 'required|integer|min:0|max:100',
+        ]));
         $trajet->update($validated);
         return redirect()->route('trajets.index')->with('success', 'Trajet mis à jour avec succès.');
     }
