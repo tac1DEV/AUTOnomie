@@ -12,6 +12,7 @@ class Recharge extends Model
 
     protected $fillable = [
         'date',
+        'km',
         'duree',
         'kw_charge',
         'prix_kwh',

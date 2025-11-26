@@ -50,7 +50,7 @@ class RechargeController extends Controller
 
 
         if ($recharge) {
-            return redirect()->route('recharges.index')->with('success', 'Recharge créée avec succès.');
+            return redirect()->route('home')->with('success', 'Recharge créée avec succès.');
         } else {
             // Pour ne pas perdre la progression du form
             return redirect()->back()->withInput()->with('error', 'Erreur lors de la création de la recharge.');
@@ -94,7 +94,7 @@ class RechargeController extends Controller
         ]));
         $recharge->update($validated);
 
-        return redirect()->route('recharges.index')->with('success', 'Recharge mise à jour avec succès.');
+        return redirect()->route('home')->with('success', 'Recharge mise à jour avec succès.');
     }
 
 

@@ -48,7 +48,7 @@ class TrajetController extends Controller
 
 
 
-        return redirect()->route('trajets.index')->with('success', 'Trajet crée avec succès.');
+        return redirect()->route('home')->with('success', 'Trajet crée avec succès.');
     }
     public function edit($id)
     {

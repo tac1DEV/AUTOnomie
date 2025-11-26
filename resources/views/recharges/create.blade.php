@@ -45,7 +45,7 @@
                            border border-gray-300 shadow-sm hover:bg-blue-700 transition">
                     Créer
                 </button>
-                <a href="{{ route('recharges.index') }}" class="inline-flex items-center px-6 py-2 bg-gray-100 text-gray-700 text-lg font-medium rounded-xl
+                <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-2 bg-gray-100 text-gray-700 text-lg font-medium rounded-xl
                            border border-gray-300 shadow-sm hover:bg-gray-200 transition">
                     Annuler
                 </a>

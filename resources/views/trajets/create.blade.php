@@ -113,7 +113,7 @@
                     Créer
                 </button>
 
-                <a href="{{ route('recharges.index') }}"
+                <a href="{{ route('home') }}"
                     class="inline-flex items-center p-2 bg-gray-100 text-gray-700  text-lg font-medium rounded-xl border border-gray-300 shadow-sm hover:bg-gray-200">
                     Annuler
                 </a>
