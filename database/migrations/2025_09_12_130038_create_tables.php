@@ -35,6 +35,12 @@ return new class extends Migration {
         Schema::create('recharges', function (Blueprint $table) {
             $table->id();
             $table->date('date')->nullable();
+            $table->string('action', 100);
+            $table->string('destination', 100);
+            $table->integer('km');
+            $table->float('autonomie')->nullable();
+            $table->string('type', 3);
+            $table->string('reset', 3)->nullable();
             $table->time('duree');
             $table->float('kw_charge');
             $table->float('prix_kwh')->default(0);
